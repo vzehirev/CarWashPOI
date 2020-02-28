@@ -1,6 +1,6 @@
 using System;
 
-namespace CarWashPOI.Models
+namespace CarWashPOI.ViewModels
 {
     public class ErrorViewModel
     {
