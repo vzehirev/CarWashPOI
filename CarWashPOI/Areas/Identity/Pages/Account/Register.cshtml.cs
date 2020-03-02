@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using CarWashPOI.Data.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -22,16 +23,16 @@ namespace CarWashPOI.Areas.Identity.Pages.Account
     {
         private readonly IConfiguration _configuration;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
             IConfiguration configuration,
             RoleManager<IdentityRole> roleManager,
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
@@ -114,7 +115,7 @@ namespace CarWashPOI.Areas.Identity.Pages.Account
             }
             else if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = Input.Username, Email = Input.Email };
+                var user = new ApplicationUser { UserName = Input.Username, Email = Input.Email };
 
                 if (user.UserName.ToUpper() == adminUsername.ToUpper()
                     && user.Email.ToUpper() == adminEmail.ToUpper())
@@ -146,7 +147,7 @@ namespace CarWashPOI.Areas.Identity.Pages.Account
             var adminRole = new IdentityRole("Admin");
             await _roleManager.CreateAsync(adminRole);
 
-            var firstAdminUser = new IdentityUser
+            var firstAdminUser = new ApplicationUser
             {
                 UserName = _configuration["AdminUserCredentials:Username"],
                 Email = _configuration["AdminUserCredentials:Email"]

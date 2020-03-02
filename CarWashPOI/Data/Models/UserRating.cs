@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace CarWashPOI.Data.Models
 {
-    public class Comment : IDeleteableEntity
+    public class UserRating : IDeleteableEntity
     {
-        public int Id { get; set; }
         public string UserId { get; set; }
         public ApplicationUser User { get; set; }
-        public string Content { get; set; }
-        public DateTime LastModified { get; set; }
+        public int RatingId { get; set; }
+        public Rating Rating { get; set; }
         public bool IsDeleted { get; set; }
     }
 }

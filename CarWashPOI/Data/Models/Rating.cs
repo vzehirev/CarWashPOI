@@ -11,7 +11,6 @@ namespace CarWashPOI.Data.Models
         public int Id { get; set; }
         public int Positives { get; set; }
         public int Negatives { get; set; }
-        public string UserId { get; set; }
-        public IdentityUser User { get; set; }
+        public ICollection<UserRating> RatingUsers { get; set; }
     }
 }

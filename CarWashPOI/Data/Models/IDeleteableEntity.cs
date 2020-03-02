@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 
 namespace CarWashPOI.Data.Models
 {
-    public class Image : IDeleteableEntity
+    public interface IDeleteableEntity
     {
-        public int Id { get; set; }
-        public string Url { get; set; }
         public bool IsDeleted { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace CarWashPOI.Data.Models
     {
         public int Id { get; set; }
         public string Town { get; set; }
-        public string City { get; set; }
+        public string Neighbourhood { get; set; }
         public string Street { get; set; }
     }
 }
