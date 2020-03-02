@@ -74,14 +74,26 @@ namespace CarWashPOI.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
         }
 
-        public async Task OnGetAsync(string returnUrl = null)
+        public async Task<IActionResult> OnGetAsync(string returnUrl = null)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return Redirect("/");
+            }
+
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return Redirect("/");
+            }
+
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
@@ -93,12 +105,12 @@ namespace CarWashPOI.Areas.Identity.Pages.Account
             if (Input.Username.ToUpper() == adminUsername.ToUpper()
                 && Input.Email.ToUpper() != adminEmail.ToUpper())
             {
-                ModelState.AddModelError(string.Empty, "Please try with different username.");
+                ModelState.AddModelError(nameof(Input.Username), "Please try with different username.");
             }
             else if ((Input.Email.ToUpper() == adminEmail.ToUpper() && Input.Username.ToUpper() != adminUsername.ToUpper())
                 || userWithSuchEmail != null)
             {
-                ModelState.AddModelError(string.Empty, "Please try with different e-mail address.");
+                ModelState.AddModelError(nameof(Input.Email), "Please try with different e-mail address.");
             }
             else if (ModelState.IsValid)
             {
