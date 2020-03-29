@@ -1,5 +1,3 @@
-using System;
-
 namespace CarWashPOI.ViewModels
 {
     public class ErrorViewModel

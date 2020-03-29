@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CarWashPOI.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using CarWashPOI.ViewModels;
+using System.Diagnostics;
 
 namespace CarWashPOI.Controllers
 {
