@@ -1,0 +1,47 @@
+﻿@model CarWashPOI.ViewModels.Location.Input.AddLocationInputModel
+@{
+    ViewData["Title"] = "Добави локация";
+}
+
+<div id="map" class="mb-4"></div>
+
+<h1 class="mx-auto justify-content-center text-center">@ViewData["Title"]</h1>
+
+<div class="col-md-4 mx-auto justify-content-center text-center">
+    <hr />
+    <form asp-controller="Locations" asp-action="Add" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="@Model.Title"></label>
+            <input asp-for="@Model.Title" class="form-control" />
+            <span asp-validation-for="@Model.Title" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Description"></label>
+            <input asp-for="@Model.Description" class="form-control" />
+            <span asp-validation-for="@Model.Description" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.City"></label>
+            <input asp-for="@Model.City" class="form-control" />
+            <span asp-validation-for="@Model.City" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Neighbourhood"></label>
+            <input asp-for="@Model.Neighbourhood" class="form-control" />
+            <span asp-validation-for="@Model.Neighbourhood" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Street"></label>
+            <input asp-for="@Model.Street" class="form-control" />
+            <span asp-validation-for="@Model.Street" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-success">Добави</button>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <partial name="MapIncludes" />
+    <partial name="AddLocationMapJs" />
+}

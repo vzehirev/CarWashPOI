@@ -2,7 +2,12 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div id="map" class="mb-4"></div>
+<div class="row mx-auto justify-content-center text-center">
+    <a asp-controller="Locations" asp-action="Add" class="btn btn-outline-success">Добави локация</a>
 </div>
+
+@section Scripts {
+    <partial name="MapIncludes" />
+    <partial name="MapJs" />
+}
