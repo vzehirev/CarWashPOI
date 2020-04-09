@@ -2,14 +2,15 @@
 
 namespace CarWashPOI.Data.Models
 {
-    public class Image : IDeleteableEntity
+    public class Coordinates
     {
         [Key, Required]
         public int Id { get; set; }
 
         [Required]
-        public string Url { get; set; }
+        public double Latitude { get; set; }
 
-        public bool IsDeleted { get; set; }
+        [Required]
+        public double Longitude { get; set; }
     }
 }

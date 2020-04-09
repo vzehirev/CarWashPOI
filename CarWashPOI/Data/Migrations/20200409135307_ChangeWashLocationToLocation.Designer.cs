@@ -4,14 +4,16 @@ using CarWashPOI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarWashPOI.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200409135307_ChangeWashLocationToLocation")]
+    partial class ChangeWashLocationToLocation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -115,7 +117,6 @@ namespace CarWashPOI.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Content")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -125,11 +126,9 @@ namespace CarWashPOI.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Views")
@@ -150,7 +149,6 @@ namespace CarWashPOI.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Content")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -163,7 +161,6 @@ namespace CarWashPOI.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -192,7 +189,6 @@ namespace CarWashPOI.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Url")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -229,7 +225,7 @@ namespace CarWashPOI.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AddressId")
+                    b.Property<int?>("AddressId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -241,17 +237,17 @@ namespace CarWashPOI.Data.Migrations
                     b.Property<DateTime>("LastModified")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("LatLonId")
+                    b.Property<int?>("LatLonId")
                         .HasColumnType("int");
 
-                    b.Property<int>("LocationTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RatingId")
+                    b.Property<int?>("RatingId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -259,27 +255,9 @@ namespace CarWashPOI.Data.Migrations
 
                     b.HasIndex("LatLonId");
 
-                    b.HasIndex("LocationTypeId");
-
                     b.HasIndex("RatingId");
 
                     b.ToTable("Locations");
-                });
-
-            modelBuilder.Entity("CarWashPOI.Data.Models.LocationType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("LocationTypes");
                 });
 
             modelBuilder.Entity("CarWashPOI.Data.Models.Rating", b =>
@@ -308,7 +286,6 @@ namespace CarWashPOI.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -482,9 +459,7 @@ namespace CarWashPOI.Data.Migrations
                 {
                     b.HasOne("CarWashPOI.Data.Models.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("CarWashPOI.Data.Models.Comment", b =>
@@ -495,9 +470,7 @@ namespace CarWashPOI.Data.Migrations
 
                     b.HasOne("CarWashPOI.Data.Models.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("CarWashPOI.Data.Models.Image", b =>
@@ -515,27 +488,15 @@ namespace CarWashPOI.Data.Migrations
                 {
                     b.HasOne("CarWashPOI.Data.Models.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AddressId");
 
                     b.HasOne("CarWashPOI.Data.Models.LatLon", "LatLon")
                         .WithMany()
-                        .HasForeignKey("LatLonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CarWashPOI.Data.Models.LocationType", "LocationType")
-                        .WithMany()
-                        .HasForeignKey("LocationTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("LatLonId");
 
                     b.HasOne("CarWashPOI.Data.Models.Rating", "Rating")
                         .WithMany()
-                        .HasForeignKey("RatingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RatingId");
                 });
 
             modelBuilder.Entity("CarWashPOI.Data.Models.UserRating", b =>

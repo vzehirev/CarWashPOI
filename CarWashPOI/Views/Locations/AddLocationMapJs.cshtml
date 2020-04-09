@@ -1,5 +1,7 @@
 ﻿<script>
-    window.onload = function () {
+    $(document).ready(initMap);
+
+    function initMap() {
         let map = L.map("map").setView([42.6977, 23.3219], 11);
 
         L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
@@ -12,10 +14,12 @@
 
         let marker = L.marker();
 
+        map.on("click", onMapClick);
+
         function onMapClick(e) {
             marker.setLatLng(e.latlng).addTo(map);
+            $("#latitude").val(e.latlng.lat);
+            $("#longitude").val(e.latlng.lng);
         }
-
-        map.on("click", onMapClick);
     }
 </script>

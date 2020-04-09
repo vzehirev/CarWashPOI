@@ -1,7 +1,10 @@
+using AutoMapper;
 using CarWashPOI.Data;
 using CarWashPOI.Data.Models;
+using CarWashPOI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -31,8 +34,23 @@ namespace CarWashPOI
             services.AddControllersWithViews();
             services.AddRazorPages();
 
+            // Add AutoMapper
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new AutoMapperMappings());
+            });
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
             // Admin role and user seeder class
             services.AddTransient<AdminRoleAndUserSeeder>();
+
+            // Application services
+            services.AddTransient<ICloudinaryService, CloudinaryService>();
+            services.AddTransient<IImagesService, ImagesService>();
+            services.AddTransient<ILocationsService, LocationsService>();
+            services.AddTransient<ITownsService, TownsService>();
+            services.AddTransient<ILocationTypesService, LocationTypesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

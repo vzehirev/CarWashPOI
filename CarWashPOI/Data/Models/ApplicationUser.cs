@@ -3,9 +3,8 @@ using System.Collections.Generic;
 
 namespace CarWashPOI.Data.Models
 {
-    public class ApplicationUser : IdentityUser, IDeleteableEntity
+    public class ApplicationUser : IdentityUser
     {
-        public ICollection<UserRating> UserRatings { get; set; }
-        public bool IsDeleted { get; set; }
+        public virtual ICollection<UserRating> UserRatings { get; set; }
     }
 }

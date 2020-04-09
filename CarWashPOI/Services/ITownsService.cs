@@ -1,4 +1,4 @@
-﻿using CarWashPOI.ViewModels.Locations;
+﻿using CarWashPOI.ViewModels.Towns;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace CarWashPOI.Services
 {
-    public interface ILocationsService
+    public interface ITownsService
     {
-        public Task<int> Add(AddLocationViewModel inputModel);
+        public Task<IEnumerable<TownViewModel>> GetAllTownsAsync();
     }
 }

@@ -2,23 +2,49 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CarWashPOI.ViewModels.Location.Input;
+using CarWashPOI.Services;
+using CarWashPOI.ViewModels.Locations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarWashPOI.Controllers
 {
     public class LocationsController : Controller
     {
-        public IActionResult Add()
+        private readonly ILocationsService locationsService;
+        private readonly ITownsService townsService;
+        private readonly ILocationTypesService locationTypesService;
+
+        public LocationsController(ILocationsService locationsService, ITownsService townsService,
+            ILocationTypesService locationTypesService)
         {
-            return View();
+            this.locationsService = locationsService;
+            this.townsService = townsService;
+            this.locationTypesService = locationTypesService;
+        }
+
+        public async Task<IActionResult> Add()
+        {
+            var addLocationViewModel = new AddLocationViewModel();
+            addLocationViewModel.AllLocationTypes = await locationTypesService.GetAllLocationTypesAsync();
+            addLocationViewModel.AllTowns = await townsService.GetAllTownsAsync();
+
+            return View(addLocationViewModel);
         }
 
         [HttpPost]
-        public IActionResult Add(AddLocationInputModel inputModel)
+        public async Task<IActionResult> Add(AddLocationViewModel addLocationViewModel)
         {
-
-            return View();
+            if (ModelState.IsValid)
+            {
+                var locationId = await locationsService.Add(addLocationViewModel);
+                return View();
+            }
+            else
+            {
+                addLocationViewModel.AllLocationTypes = await locationTypesService.GetAllLocationTypesAsync();
+                addLocationViewModel.AllTowns = await townsService.GetAllTownsAsync();
+                return View(addLocationViewModel);
+            }
         }
     }
 }
