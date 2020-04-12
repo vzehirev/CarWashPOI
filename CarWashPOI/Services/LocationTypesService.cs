@@ -13,17 +13,17 @@ namespace CarWashPOI.Services
     public class LocationTypesService : ILocationTypesService
     {
         private readonly ApplicationDbContext dbContext;
-        private readonly IMapper autoMapper;
+        private readonly IMapper mapper;
 
-        public LocationTypesService(ApplicationDbContext dbContext, IMapper autoMapper)
+        public LocationTypesService(ApplicationDbContext dbContext, IMapper mapper)
         {
             this.dbContext = dbContext;
-            this.autoMapper = autoMapper;
+            this.mapper = mapper;
         }
         public async Task<IEnumerable<LocationTypeViewModel>> GetAllLocationTypesAsync()
         {
             var allLocationTypes = await dbContext.LocationTypes
-                .ProjectTo<LocationTypeViewModel>(autoMapper.ConfigurationProvider)
+                .ProjectTo<LocationTypeViewModel>(mapper.ConfigurationProvider)
                 .ToArrayAsync();
 
             return allLocationTypes;

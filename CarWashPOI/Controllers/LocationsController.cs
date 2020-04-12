@@ -22,6 +22,13 @@ namespace CarWashPOI.Controllers
             this.locationTypesService = locationTypesService;
         }
 
+        [Route("/Locations/{id}")]
+        public async Task<IActionResult> LocationDetails(int id)
+        {
+            var outputModel = await locationsService.GetLocationDetailsAsync(id);
+            return View(outputModel);
+        }
+
         public async Task<IActionResult> Add()
         {
             var addLocationViewModel = new AddLocationViewModel();
@@ -36,7 +43,7 @@ namespace CarWashPOI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var locationId = await locationsService.Add(addLocationViewModel);
+                var locationId = await locationsService.AddAsync(addLocationViewModel);
                 return View();
             }
             else

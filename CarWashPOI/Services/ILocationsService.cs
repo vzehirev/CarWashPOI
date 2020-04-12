@@ -8,6 +8,10 @@ namespace CarWashPOI.Services
 {
     public interface ILocationsService
     {
-        public Task<int> Add(AddLocationViewModel inputModel);
+        public Task<int> AddAsync(AddLocationViewModel inputModel);
+
+        public Task<IEnumerable<LocationOutputModel>> GetAllLocationsAsync();
+
+        public Task<LocationDetailsOutputModel> GetLocationDetailsAsync(int id);
     }
 }

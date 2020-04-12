@@ -14,9 +14,9 @@ namespace CarWashPOI.Data.Models
         public string Description { get; set; }
 
         [Required]
-        public int LatLonId { get; set; }
+        public int CoordinatesId { get; set; }
 
-        public virtual Coordinates LatLon { get; set; }
+        public virtual Coordinates Coordinates { get; set; }
 
         [Required]
         public int AddressId { get; set; }

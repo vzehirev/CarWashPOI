@@ -64,16 +64,6 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-    <partial name="MapIncludes" />
-    <partial name="AddLocationMapJs" />
-
-    <script>
-        $("#customFile").on("change", updateFilesCount);
-
-        function updateFilesCount() {
-            let filesCount = Array.from($(this)[0].files).length;
-            let message = filesCount > 1 ? `${filesCount} избрани файла` : `${filesCount} избран файл`;
-            $("#customFileLabel").addClass("selected").html(message);
-        }
-    </script>
+    <partial name="MapIncludesPartial" />
+    <partial name="AddLocationMapJsPartial" />
 }
