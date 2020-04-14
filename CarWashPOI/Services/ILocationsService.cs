@@ -1,17 +1,23 @@
-﻿using CarWashPOI.ViewModels.Locations;
-using System;
+﻿using CarWashPOI.ViewModels.Coordinates;
+using CarWashPOI.ViewModels.Locations;
+using CarWashPOI.ViewModels.Ratings;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CarWashPOI.Services
 {
     public interface ILocationsService
     {
-        public Task<int> AddAsync(AddLocationViewModel inputModel);
+        Task<int> AddAsync(AddLocationViewModel inputModel);
 
-        public Task<IEnumerable<LocationOutputModel>> GetAllLocationsAsync();
+        Task<IEnumerable<LocationOutputModel>> GetAllLocationsAsync();
 
-        public Task<LocationDetailsOutputModel> GetLocationDetailsAsync(int id);
+        Task<LocationDetailsOutputModel> GetLocationDetailsAsync(int locationId);
+
+        Task<CoordinatesOutputModel> GetLocationCoordinatesAsync(int locationId);
+
+        Task<int> RateLocationAsync(int locationId, string userId, bool isPositive);
+
+        Task<RatingOutputModel> GetLocationRatingAsync(int locationId);
     }
 }

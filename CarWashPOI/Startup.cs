@@ -4,7 +4,6 @@ using CarWashPOI.Data.Models;
 using CarWashPOI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -35,7 +34,7 @@ namespace CarWashPOI
             services.AddRazorPages();
 
             // Add AutoMapper
-            var mapperConfig = new MapperConfiguration(mc =>
+            MapperConfiguration mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new AutoMapperMappings());
             });

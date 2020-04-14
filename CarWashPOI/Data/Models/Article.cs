@@ -17,10 +17,9 @@ namespace CarWashPOI.Data.Models
 
         [Required]
         public string UserId { get; set; }
-
         public virtual ApplicationUser User { get; set; }
 
-        public virtual ICollection<Image> Images { get; set; }
+        public virtual ICollection<Image> Images { get; set; } = new HashSet<Image>();
 
         [Required]
         public DateTime LastModified { get; set; }

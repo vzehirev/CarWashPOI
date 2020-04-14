@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CarWashPOI.Data.Models
 {
@@ -9,11 +8,14 @@ namespace CarWashPOI.Data.Models
         public int Id { get; set; }
 
         [Required]
-        public int Positives { get; set; }
+        public bool IsPositive { get; set; }
 
         [Required]
-        public int Negatives { get; set; }
+        public string UserId { get; set; }
+        public virtual ApplicationUser User { get; set; }
 
-        public virtual ICollection<UserRating> RatingUsers { get; set; }
+        [Required]
+        public int LocationId { get; set; }
+        public virtual Location Location { get; set; }
     }
 }

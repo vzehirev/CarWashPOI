@@ -3,9 +3,7 @@ using AutoMapper.QueryableExtensions;
 using CarWashPOI.Data;
 using CarWashPOI.ViewModels.Towns;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CarWashPOI.Services
@@ -23,7 +21,7 @@ namespace CarWashPOI.Services
 
         public async Task<IEnumerable<TownViewModel>> GetAllTownsAsync()
         {
-            var allTowns = await dbContext.Towns
+            TownViewModel[] allTowns = await dbContext.Towns
                 .ProjectTo<TownViewModel>(mapper.ConfigurationProvider)
                 .ToArrayAsync();
 

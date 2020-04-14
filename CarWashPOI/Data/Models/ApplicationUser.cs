@@ -5,6 +5,6 @@ namespace CarWashPOI.Data.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public virtual ICollection<UserRating> UserRatings { get; set; }
+        public virtual ICollection<Rating> Ratings { get; set; } = new HashSet<Rating>();
     }
 }

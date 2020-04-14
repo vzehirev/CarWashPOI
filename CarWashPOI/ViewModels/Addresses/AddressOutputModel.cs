@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CarWashPOI.ViewModels.Addresses
+﻿namespace CarWashPOI.ViewModels.Addresses
 {
     public class AddressOutputModel
     {

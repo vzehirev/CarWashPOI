@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CarWashPOI.Services;
+﻿using CarWashPOI.Services;
 using CarWashPOI.ViewModels.Locations;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace CarWashPOI.Controllers
 {
@@ -22,18 +19,20 @@ namespace CarWashPOI.Controllers
             this.locationTypesService = locationTypesService;
         }
 
-        [Route("/Locations/{id}")]
+        [Route("/Locations/{id:int}")]
         public async Task<IActionResult> LocationDetails(int id)
         {
-            var outputModel = await locationsService.GetLocationDetailsAsync(id);
+            LocationDetailsOutputModel outputModel = await locationsService.GetLocationDetailsAsync(id);
             return View(outputModel);
         }
 
         public async Task<IActionResult> Add()
         {
-            var addLocationViewModel = new AddLocationViewModel();
-            addLocationViewModel.AllLocationTypes = await locationTypesService.GetAllLocationTypesAsync();
-            addLocationViewModel.AllTowns = await townsService.GetAllTownsAsync();
+            AddLocationViewModel addLocationViewModel = new AddLocationViewModel
+            {
+                AllLocationTypes = await locationTypesService.GetAllLocationTypesAsync(),
+                AllTowns = await townsService.GetAllTownsAsync()
+            };
 
             return View(addLocationViewModel);
         }
@@ -43,8 +42,8 @@ namespace CarWashPOI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var locationId = await locationsService.AddAsync(addLocationViewModel);
-                return View();
+                int locationId = await locationsService.AddAsync(addLocationViewModel);
+                return RedirectToAction(nameof(LocationDetails), new { id = locationId });
             }
             else
             {

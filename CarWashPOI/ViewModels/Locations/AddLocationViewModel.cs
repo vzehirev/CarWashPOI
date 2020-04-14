@@ -1,11 +1,8 @@
 ﻿using CarWashPOI.ViewModels.LocationTypes;
 using CarWashPOI.ViewModels.Towns;
 using Microsoft.AspNetCore.Http;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CarWashPOI.ViewModels.Locations
 {

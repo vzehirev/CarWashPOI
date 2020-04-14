@@ -2,11 +2,10 @@
 using AutoMapper.QueryableExtensions;
 using CarWashPOI.Data;
 using CarWashPOI.Data.Models;
+using CarWashPOI.ViewModels.Coordinates;
 using CarWashPOI.ViewModels.Locations;
-using CloudinaryDotNet;
-using CloudinaryDotNet.Actions;
+using CarWashPOI.ViewModels.Ratings;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,25 +27,23 @@ namespace CarWashPOI.Services
 
         public async Task<int> AddAsync(AddLocationViewModel addLocationViewModel)
         {
-            var locationToAdd = mapper.Map<Location>(addLocationViewModel);
+            Location locationToAdd = mapper.Map<Location>(addLocationViewModel);
 
             const int maxImageSize = 1024 * 1024 * 10;
             if (addLocationViewModel.Files != null)
             {
-                foreach (var image in addLocationViewModel.Files)
+                foreach (Microsoft.AspNetCore.Http.IFormFile image in addLocationViewModel.Files)
                 {
                     if (image.ContentType.ToUpper().Contains("IMAGE") && image.Length <= maxImageSize)
                     {
-                        using (var imageFileStream = image.OpenReadStream())
+                        using (System.IO.Stream imageFileStream = image.OpenReadStream())
                         {
-                            var imageUrl = await this.imagesService.UploadImageAsync(imageFileStream);
+                            string imageUrl = await imagesService.UploadImageAsync(imageFileStream);
                             locationToAdd.Images.Add(new Image { Url = imageUrl });
                         }
                     }
                 }
             }
-
-            locationToAdd.Rating = new Rating();
 
             dbContext.Locations.Add(locationToAdd);
             await dbContext.SaveChangesAsync();
@@ -56,21 +53,63 @@ namespace CarWashPOI.Services
 
         public async Task<IEnumerable<LocationOutputModel>> GetAllLocationsAsync()
         {
-            var allLocations = await dbContext.Locations
+            LocationOutputModel[] allLocations = await dbContext.Locations
                 .ProjectTo<LocationOutputModel>(mapper.ConfigurationProvider)
                 .ToArrayAsync();
 
             return allLocations;
         }
 
+        public async Task<CoordinatesOutputModel> GetLocationCoordinatesAsync(int id)
+        {
+            CoordinatesOutputModel locationCoordinates = await dbContext.Locations
+                .Where(l => l.Id == id)
+                .ProjectTo<CoordinatesOutputModel>(mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
+
+            return locationCoordinates;
+        }
+
         public async Task<LocationDetailsOutputModel> GetLocationDetailsAsync(int id)
         {
-            var location = await dbContext.Locations
+            LocationDetailsOutputModel location = await dbContext.Locations
                 .Where(l => l.Id == id)
                 .ProjectTo<LocationDetailsOutputModel>(mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
 
             return location;
+        }
+
+        public async Task<RatingOutputModel> GetLocationRatingAsync(int locationId)
+        {
+            return await dbContext.Locations
+                .Where(l => l.Id == locationId)
+                .ProjectTo<RatingOutputModel>(mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<int> RateLocationAsync(int locationId, string userId, bool isPositive)
+        {
+            ApplicationUser user = await dbContext.Users.Include(u => u.Ratings).FirstOrDefaultAsync(u => u.Id == userId);
+            Rating usersRating = user.Ratings.FirstOrDefault(r => r.LocationId == locationId);
+
+            if (usersRating != null)
+            {
+                usersRating.IsPositive = isPositive;
+            }
+            else
+            {
+                usersRating = new Rating
+                {
+                    LocationId = locationId,
+                    UserId = userId,
+                    IsPositive = isPositive,
+                };
+
+                dbContext.Ratings.Add(usersRating);
+            }
+
+            return await dbContext.SaveChangesAsync();
         }
     }
 }

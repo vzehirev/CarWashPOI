@@ -3,9 +3,7 @@ using AutoMapper.QueryableExtensions;
 using CarWashPOI.Data;
 using CarWashPOI.ViewModels.LocationTypes;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CarWashPOI.Services
@@ -22,7 +20,7 @@ namespace CarWashPOI.Services
         }
         public async Task<IEnumerable<LocationTypeViewModel>> GetAllLocationTypesAsync()
         {
-            var allLocationTypes = await dbContext.LocationTypes
+            LocationTypeViewModel[] allLocationTypes = await dbContext.LocationTypes
                 .ProjectTo<LocationTypeViewModel>(mapper.ConfigurationProvider)
                 .ToArrayAsync();
 

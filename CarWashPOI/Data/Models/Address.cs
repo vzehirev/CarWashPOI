@@ -9,7 +9,6 @@ namespace CarWashPOI.Data.Models
 
         [Required]
         public int TownId { get; set; }
-
         public virtual Town Town { get; set; }
 
         public string Neighbourhood { get; set; }

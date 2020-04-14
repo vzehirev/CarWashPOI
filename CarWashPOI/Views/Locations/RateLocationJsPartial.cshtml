@@ -1,0 +1,24 @@
+﻿<script>
+    let positiveRatingElement = $("#positiveRating");
+    let negativeRatingElement = $("#negativeRating");
+
+    positiveRatingElement.click(function () {
+        rateLocation(locationId, true);
+    });
+
+    negativeRatingElement.click(function () {
+        rateLocation(locationId, false);
+    });
+
+    function rateLocation(locationId, isPositive) {
+        $.ajax({
+            method: "POST",
+            url: `/Api/Locations/${locationId}`,
+            data: { isPositive: isPositive }
+        })
+            .done(function (response) {
+                positiveRatingElement.text(`+ ${response.positives}`);
+                negativeRatingElement.text(`- ${response.negatives}`);
+            });
+    }
+</script>

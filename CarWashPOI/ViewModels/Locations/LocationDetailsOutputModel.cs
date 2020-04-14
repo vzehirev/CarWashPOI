@@ -1,11 +1,8 @@
 ﻿using CarWashPOI.ViewModels.Addresses;
 using CarWashPOI.ViewModels.Comments;
-using CarWashPOI.ViewModels.Locations;
 using CarWashPOI.ViewModels.Ratings;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CarWashPOI.ViewModels.Locations
 {

@@ -1,0 +1,26 @@
+﻿<script>
+    let locationId = $("#locationId").text();
+
+    $.ajax({
+        url: `/Api/Locations/${locationId}`,
+    })
+        .done(function (locationCoordinates) {
+            drawMap(locationCoordinates);
+        });
+
+    function drawMap(locationCoordinates) {
+        let map = L.map("map").setView([locationCoordinates.latitude, locationCoordinates.longitude], 17);
+
+        L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+            maxZoom: 21,
+            id: "mapbox/streets-v11",
+            tileSize: 512,
+            zoomOffset: -1,
+            accessToken: "pk.eyJ1IjoidnplaGlyZXYiLCJhIjoiY2s3NGpvNGJsMDYwcDNmbzNqZXM2enM4MiJ9.XENUDCk7i7evvkHshJjKUg",
+        })
+            .addTo(map);
+
+        let marker = L.marker([locationCoordinates.latitude, locationCoordinates.longitude]);
+        marker.addTo(map);
+    }
+</script>

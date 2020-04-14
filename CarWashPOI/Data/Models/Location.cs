@@ -15,27 +15,21 @@ namespace CarWashPOI.Data.Models
 
         [Required]
         public int CoordinatesId { get; set; }
-
         public virtual Coordinates Coordinates { get; set; }
 
         [Required]
         public int AddressId { get; set; }
-
         public virtual Address Address { get; set; }
 
         [Required]
         public int LocationTypeId { get; set; }
-
         public virtual LocationType LocationType { get; set; }
 
         public virtual ICollection<Image> Images { get; set; } = new HashSet<Image>();
 
-        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
 
-        [Required]
-        public int RatingId { get; set; }
-
-        public virtual Rating Rating { get; set; }
+        public virtual ICollection<Rating> Ratings { get; set; } = new HashSet<Rating>();
 
         [Required]
         public DateTime LastModified { get; set; }
