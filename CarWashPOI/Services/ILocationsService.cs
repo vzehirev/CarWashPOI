@@ -1,4 +1,5 @@
-﻿using CarWashPOI.ViewModels.Coordinates;
+﻿using CarWashPOI.ViewModels;
+using CarWashPOI.ViewModels.Coordinates;
 using CarWashPOI.ViewModels.Locations;
 using CarWashPOI.ViewModels.Ratings;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace CarWashPOI.Services
     {
         Task<int> AddAsync(AddLocationViewModel inputModel);
 
-        Task<IEnumerable<LocationOutputModel>> GetAllLocationsAsync();
+        Task<IEnumerable<LocationRestResponseModel>> GetAllLocationsAsync();
 
         Task<LocationDetailsOutputModel> GetLocationDetailsAsync(int locationId);
 
@@ -19,5 +20,7 @@ namespace CarWashPOI.Services
         Task<int> RateLocationAsync(int locationId, string userId, bool isPositive);
 
         Task<RatingOutputModel> GetLocationRatingAsync(int locationId);
+
+        Task<HomePageOutputModel> GetLocationsAsync(int townId, int typeId, string orderBy, int skip, int take);
     }
 }

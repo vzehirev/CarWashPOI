@@ -50,6 +50,7 @@ namespace CarWashPOI
             services.AddTransient<ILocationsService, LocationsService>();
             services.AddTransient<ITownsService, TownsService>();
             services.AddTransient<ILocationTypesService, LocationTypesService>();
+            services.AddTransient<ICommentsService, CommentsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -80,3 +80,8 @@ body {
 .container {
     max-width: 100%;
 }
+
+#filterAndOrderBtn {
+    max-height:2.5rem;
+    margin-top:1.9rem;
+}

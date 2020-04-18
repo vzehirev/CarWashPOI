@@ -1,18 +1,66 @@
-﻿using CarWashPOI.ViewModels;
+﻿using CarWashPOI.Services;
+using CarWashPOI.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace CarWashPOI.Controllers
 {
     public class HomeController : Controller
     {
-        public HomeController()
+        private readonly ILocationsService locationsService;
+        private readonly ITownsService townsService;
+        private readonly ILocationTypesService locationTypesService;
+
+        public HomeController(ILocationsService locationsService, ITownsService townsService, ILocationTypesService locationTypesService)
         {
+            this.locationsService = locationsService;
+            this.townsService = townsService;
+            this.locationTypesService = locationTypesService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(HomePageInputModel inputModel)
         {
-            return View();
+            const int resultsPerPage = 9;
+
+            if (inputModel.Page < 1)
+            {
+                inputModel.Page = 1;
+            }
+
+            int skip = (inputModel.Page - 1) * resultsPerPage;
+
+            HomePageOutputModel homePageOutputModel = await locationsService.GetLocationsAsync(
+                    inputModel.TownId,
+                    inputModel.TypeId,
+                    inputModel.OrderBy,
+                    skip,
+                    resultsPerPage);
+
+            homePageOutputModel.AllTowns = await townsService.GetAllTownsAsync();
+            homePageOutputModel.AllTypes = await locationTypesService.GetAllLocationTypesAsync();
+            homePageOutputModel.SelectedTownId = inputModel.TownId;
+            homePageOutputModel.SelectedTypeId = inputModel.TypeId;
+            homePageOutputModel.SelectedOrderBy = inputModel.OrderBy;
+
+            if (homePageOutputModel.AllCases == 0)
+            {
+                return View(homePageOutputModel);
+            }
+
+            int lastPage = (int)Math.Ceiling(((double)homePageOutputModel.AllCases / resultsPerPage));
+
+            if (inputModel.Page > lastPage)
+            {
+                inputModel.Page = lastPage;
+
+                return RedirectToAction(nameof(Index), inputModel);
+            }
+
+            homePageOutputModel.CurrentPage = inputModel.Page;
+            homePageOutputModel.LastPage = lastPage;
+            return View(homePageOutputModel);
         }
 
         public IActionResult Privacy()

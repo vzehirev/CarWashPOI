@@ -27,7 +27,7 @@ namespace CarWashPOI.Data
 
             CreateMap<AddLocationViewModel, Coordinates>();
 
-            CreateMap<Location, LocationOutputModel>()
+            CreateMap<Location, LocationRestResponseModel>()
                 .ForMember(dest => dest.Latitude, opt => opt.MapFrom(src => src.Coordinates.Latitude))
                 .ForMember(dest => dest.Longitude, opt => opt.MapFrom(src => src.Coordinates.Longitude));
 
@@ -39,7 +39,7 @@ namespace CarWashPOI.Data
                 .ForMember(dest => dest.Positives, opt => opt.MapFrom(src => src.Ratings.Count(r => r.IsPositive)))
                 .ForMember(dest => dest.Negatives, opt => opt.MapFrom(src => src.Ratings.Count(r => !r.IsPositive)));
 
-            CreateMap<Address, AddressOutputModel>()
+            CreateMap<Address, LocationDetailsPageAddressOutputModel>()
                 .ForMember(dest => dest.Town, opt => opt.MapFrom(src => src.Town.Name));
 
             CreateMap<Comment, CommentOutputModel>()
@@ -48,6 +48,11 @@ namespace CarWashPOI.Data
             CreateMap<Location, CoordinatesOutputModel>()
                 .ForMember(dest => dest.Latitude, opt => opt.MapFrom(src => src.Coordinates.Latitude))
                 .ForMember(dest => dest.Longitude, opt => opt.MapFrom(src => src.Coordinates.Longitude));
+
+            CreateMap<Location, LocationOutputModel>();
+
+            CreateMap<Address, HomePageAddressOutputModel>()
+                .ForMember(dest => dest.Town, opt => opt.MapFrom(src => src.Town.Name));
         }
     }
 }

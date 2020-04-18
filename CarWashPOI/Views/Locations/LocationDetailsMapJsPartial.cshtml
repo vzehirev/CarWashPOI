@@ -1,8 +1,8 @@
 ﻿<script>
-    let locationId = $("#locationId").text();
+    let locationId = $("#locationId").val();
 
     $.ajax({
-        url: `/Api/Locations/${locationId}`,
+        url: `/Rest/Locations/${locationId}`,
     })
         .done(function (locationCoordinates) {
             drawMap(locationCoordinates);

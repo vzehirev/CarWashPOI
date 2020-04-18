@@ -18,7 +18,7 @@
 
     function addLocationsToMap(map) {
         $.ajax({
-            url: "/Api/Locations",
+            url: "/Rest/Locations",
         })
             .done(function (allLocations) {
                 for (let location of allLocations) {

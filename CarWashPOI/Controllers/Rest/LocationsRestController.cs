@@ -6,16 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CarWashPOI.Controllers.Api
+namespace CarWashPOI.Controllers.Rest
 {
-    [Route("/Api/Locations")]
+    [Route("/Rest/Locations")]
     [ApiController]
-    public class LocationsApiController : ControllerBase
+    public class LocationsRestController : ControllerBase
     {
         private readonly ILocationsService locationsService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public LocationsApiController(ILocationsService locationsService, UserManager<ApplicationUser> userManager)
+        public LocationsRestController(ILocationsService locationsService, UserManager<ApplicationUser> userManager)
         {
             this.locationsService = locationsService;
             this.userManager = userManager;
@@ -24,7 +24,7 @@ namespace CarWashPOI.Controllers.Api
         [HttpGet]
         public async Task<IActionResult> GetAllLocations()
         {
-            IEnumerable<ViewModels.Locations.LocationOutputModel> allLocations = await locationsService.GetAllLocationsAsync();
+            IEnumerable<ViewModels.Locations.LocationRestResponseModel> allLocations = await locationsService.GetAllLocationsAsync();
 
             return new JsonResult(allLocations);
         }

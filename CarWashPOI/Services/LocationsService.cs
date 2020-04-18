@@ -2,6 +2,7 @@
 using AutoMapper.QueryableExtensions;
 using CarWashPOI.Data;
 using CarWashPOI.Data.Models;
+using CarWashPOI.ViewModels;
 using CarWashPOI.ViewModels.Coordinates;
 using CarWashPOI.ViewModels.Locations;
 using CarWashPOI.ViewModels.Ratings;
@@ -51,10 +52,10 @@ namespace CarWashPOI.Services
             return locationToAdd.Id;
         }
 
-        public async Task<IEnumerable<LocationOutputModel>> GetAllLocationsAsync()
+        public async Task<IEnumerable<LocationRestResponseModel>> GetAllLocationsAsync()
         {
-            LocationOutputModel[] allLocations = await dbContext.Locations
-                .ProjectTo<LocationOutputModel>(mapper.ConfigurationProvider)
+            LocationRestResponseModel[] allLocations = await dbContext.Locations
+                .ProjectTo<LocationRestResponseModel>(mapper.ConfigurationProvider)
                 .ToArrayAsync();
 
             return allLocations;
@@ -86,6 +87,48 @@ namespace CarWashPOI.Services
                 .Where(l => l.Id == locationId)
                 .ProjectTo<RatingOutputModel>(mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
+        }
+
+        public async Task<HomePageOutputModel> GetLocationsAsync(int townId, int typeId, string orderBy, int skip, int take)
+        {
+            HomePageOutputModel outputModel = new HomePageOutputModel();
+
+            IQueryable<Location> query = dbContext.Locations.AsQueryable();
+
+            if (townId != 0)
+            {
+                query = query.Where(l => l.Address.TownId == townId);
+            }
+
+            if (typeId != 0)
+            {
+                query = query.Where(l => l.LocationTypeId == typeId);
+            }
+
+            if (orderBy == "rating")
+            {
+                query = query
+                    .OrderByDescending(l => l.Ratings.
+                    Where(r => r.IsPositive)
+                        .Count()
+                    - l.Ratings.
+                    Where(r => !r.IsPositive)
+                        .Count());
+            }
+            else
+            {
+                query = query.OrderByDescending(l => l.LastModified);
+            }
+
+            outputModel.AllCases = await query.CountAsync();
+
+            outputModel.Locations = await query
+                .Skip(skip)
+                .Take(take)
+                .ProjectTo<LocationOutputModel>(mapper.ConfigurationProvider)
+                .ToArrayAsync();
+
+            return outputModel;
         }
 
         public async Task<int> RateLocationAsync(int locationId, string userId, bool isPositive)

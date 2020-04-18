@@ -1,6 +1,7 @@
 ﻿using CarWashPOI.Services;
 using CarWashPOI.ViewModels.Locations;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CarWashPOI.Controllers
@@ -23,6 +24,7 @@ namespace CarWashPOI.Controllers
         public async Task<IActionResult> LocationDetails(int id)
         {
             LocationDetailsOutputModel outputModel = await locationsService.GetLocationDetailsAsync(id);
+            outputModel.Comments = outputModel.Comments.OrderByDescending(c => c.LastModified);
             return View(outputModel);
         }
 

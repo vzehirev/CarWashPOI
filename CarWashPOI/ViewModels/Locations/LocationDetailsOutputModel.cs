@@ -16,7 +16,7 @@ namespace CarWashPOI.ViewModels.Locations
 
         public string Type { get; set; }
 
-        public AddressOutputModel Address { get; set; }
+        public LocationDetailsPageAddressOutputModel Address { get; set; }
 
         public RatingOutputModel Rating { get; set; }
 

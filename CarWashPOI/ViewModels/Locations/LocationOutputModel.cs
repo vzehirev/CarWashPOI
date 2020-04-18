@@ -1,4 +1,6 @@
-﻿namespace CarWashPOI.ViewModels.Locations
+﻿using CarWashPOI.ViewModels.Addresses;
+
+namespace CarWashPOI.ViewModels.Locations
 {
     public class LocationOutputModel
     {
@@ -6,8 +8,8 @@
 
         public string Title { get; set; }
 
-        public double Latitude { get; set; }
+        public HomePageAddressOutputModel Address { get; set; }
 
-        public double Longitude { get; set; }
+        public string ImageUrl { get; set; }
     }
 }
