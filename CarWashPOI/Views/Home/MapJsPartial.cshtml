@@ -1,8 +1,30 @@
 ﻿<script>
-    $(document).ready(drawMap);
+    $(document).ready(beginMapDraw);
 
-    function drawMap() {
-        let map = L.map("map").setView([42.7510, 25.2379], 8);
+    function beginMapDraw() {
+        let defaultMapLat = 42.7510;
+        let defaultMapLong = 25.2379;
+        let defaultMapZoom = 8;
+
+        let selectedTown = Number($("#town").val());
+        if (!isNaN(selectedTown)) {
+            $.ajax({
+                url: `/Rest/Towns/${selectedTown}`,
+            })
+                .done((coordinates) => {
+                    defaultMapLat = coordinates.latitude;
+                    defaultMapLong = coordinates.longitude;
+                    defaultMapZoom = 12;
+
+                    setMapLayer(defaultMapLat, defaultMapLong, defaultMapZoom);
+                });
+        } else {
+            setMapLayer(defaultMapLat, defaultMapLong, defaultMapZoom);
+        }
+    }
+
+    function setMapLayer(latitude, longitude, zoom) {
+        let map = L.map("map").setView([latitude, longitude], zoom);
 
         L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
             maxZoom: 21,
@@ -17,15 +39,30 @@
     }
 
     function addLocationsToMap(map) {
-        $.ajax({
-            url: "/Rest/Locations",
-        })
-            .done(function (allLocations) {
-                for (let location of allLocations) {
-                    let marker = L.marker([location.latitude, location.longitude]);
-                    marker.bindPopup(`<b>${location.title}</b><br><a href='/Locations/${location.id}'>Виж повече</a>`);
-                    marker.addTo(map);
-                }
-            });
+        let selectedType = Number($("#type").val());
+
+        if (!isNaN(selectedType)) {
+            $.ajax({
+                url: `/Rest/Locations/ByType/${selectedType}`,
+            })
+                .done(function (locations) {
+                    for (let location of locations) {
+                        let marker = L.marker([location.latitude, location.longitude]);
+                        marker.bindPopup(`<b>${location.title}</b><br><a href='/Locations/${location.id}'>Виж повече</a>`);
+                        marker.addTo(map);
+                    }
+                });
+        } else {
+            $.ajax({
+                url: "/Rest/Locations",
+            })
+                .done(function (allLocations) {
+                    for (let location of allLocations) {
+                        let marker = L.marker([location.latitude, location.longitude]);
+                        marker.bindPopup(`<b>${location.title}</b><br><a href='/Locations/${location.id}'>Виж повече</a>`);
+                        marker.addTo(map);
+                    }
+                });
+        }
     }
 </script>

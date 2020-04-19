@@ -18,6 +18,22 @@
     <Compile Remove="Data\Migrations\20200409154859_asdasdsadfaaf.Designer.cs" />
     <Compile Remove="Data\Migrations\20200409222635_ChangeLatLonToCoordinates.cs" />
     <Compile Remove="Data\Migrations\20200409222635_ChangeLatLonToCoordinates.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200419143813_AddTownsCoordinates.cs" />
+    <Compile Remove="Data\Migrations\20200419143813_AddTownsCoordinates.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200419143947_TwekAndFixLocationsCommentsRelationship.cs" />
+    <Compile Remove="Data\Migrations\20200419143947_TwekAndFixLocationsCommentsRelationship.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200419144010_AddTownsCoordinates.cs" />
+    <Compile Remove="Data\Migrations\20200419144010_AddTownsCoordinates.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200419144051_SeedTownsCoordinatse.cs" />
+    <Compile Remove="Data\Migrations\20200419144051_SeedTownsCoordinatse.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200419144128_SeedTownsCoordinates.cs" />
+    <Compile Remove="Data\Migrations\20200419144128_SeedTownsCoordinates.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200419144415_AddCoordinatesPropertyToTown.cs" />
+    <Compile Remove="Data\Migrations\20200419144415_AddCoordinatesPropertyToTown.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200419145006_AddCoordinatesPropertyToTown.cs" />
+    <Compile Remove="Data\Migrations\20200419145006_AddCoordinatesPropertyToTown.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200419145635_AddCoordinatesPropertyToTown.cs" />
+    <Compile Remove="Data\Migrations\20200419145635_AddCoordinatesPropertyToTown.Designer.cs" />
   </ItemGroup>
 
 

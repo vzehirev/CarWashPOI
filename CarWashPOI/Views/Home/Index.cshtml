@@ -12,7 +12,7 @@
 <form class="row mw-100 justify-content-center text-center col-md-8">
     <div class="form-group col-md-2">
         <label>Град</label>
-        <select asp-for="SelectedTownId" name="townId" class="custom-select">
+        <select id="town" asp-for="SelectedTownId" name="townId" class="custom-select">
             <option>Всички</option>
             @foreach (var town in Model.AllTowns)
             {
@@ -22,7 +22,7 @@
     </div>
     <div class="form-group col-md-2">
         <label>Тип</label>
-        <select asp-for="SelectedTypeId" name="typeId" class="custom-select">
+        <select id="type" asp-for="SelectedTypeId" name="typeId" class="custom-select">
             <option>Всички</option>
             @foreach (var locationType in Model.AllTypes)
             {

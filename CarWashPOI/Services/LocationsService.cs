@@ -131,6 +131,16 @@ namespace CarWashPOI.Services
             return outputModel;
         }
 
+        public async Task<IEnumerable<LocationRestResponseModel>> GetLocationsByTypeAsync(int locationTypeId)
+        {
+            LocationRestResponseModel[] locations = await dbContext.Locations
+                .Where(l => l.LocationTypeId == locationTypeId)
+                .ProjectTo<LocationRestResponseModel>(mapper.ConfigurationProvider)
+                .ToArrayAsync();
+
+            return locations;
+        }
+
         public async Task<int> RateLocationAsync(int locationId, string userId, bool isPositive)
         {
             ApplicationUser user = await dbContext.Users.Include(u => u.Ratings).FirstOrDefaultAsync(u => u.Id == userId);

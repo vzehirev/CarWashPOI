@@ -9,5 +9,8 @@ namespace CarWashPOI.Data.Models
 
         [Required]
         public string Name { get; set; }
+
+        public int? CoordinatesId { get; set; }
+        public Coordinates Coordinates { get; set; }
     }
 }

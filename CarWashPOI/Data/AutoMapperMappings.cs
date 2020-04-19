@@ -53,6 +53,10 @@ namespace CarWashPOI.Data
 
             CreateMap<Address, HomePageAddressOutputModel>()
                 .ForMember(dest => dest.Town, opt => opt.MapFrom(src => src.Town.Name));
+
+            CreateMap<Town, CoordinatesOutputModel>()
+                .ForMember(dest => dest.Latitude, opt => opt.MapFrom(src => src.Coordinates.Latitude))
+                .ForMember(dest => dest.Longitude, opt => opt.MapFrom(src => src.Coordinates.Longitude));
         }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using CarWashPOI.Data;
+using CarWashPOI.ViewModels.Coordinates;
 using CarWashPOI.ViewModels.Towns;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CarWashPOI.Services
@@ -26,6 +28,14 @@ namespace CarWashPOI.Services
                 .ToArrayAsync();
 
             return allTowns;
+        }
+
+        public async Task<CoordinatesOutputModel> GetTownCoordinatesAsync(int townId)
+        {
+            return await dbContext.Towns
+                .Where(t => t.Id == townId)
+                .ProjectTo<CoordinatesOutputModel>(mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
         }
     }
 }

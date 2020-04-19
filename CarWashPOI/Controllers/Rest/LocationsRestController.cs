@@ -49,5 +49,13 @@ namespace CarWashPOI.Controllers.Rest
 
             return new JsonResult(newLocationRating);
         }
+
+        [HttpGet("ByType/{locationTypeId:int}")]
+        public async Task<IActionResult> GetLocationsByType(int locationTypeId)
+        {
+            IEnumerable<ViewModels.Locations.LocationRestResponseModel> locations = await locationsService.GetLocationsByTypeAsync(locationTypeId);
+
+            return new JsonResult(locations);
+        }
     }
 }

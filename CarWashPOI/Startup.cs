@@ -1,5 +1,6 @@
 using AutoMapper;
 using CarWashPOI.Data;
+using CarWashPOI.Data.ApplicationSeeding;
 using CarWashPOI.Data.Models;
 using CarWashPOI.Services;
 using Microsoft.AspNetCore.Builder;
@@ -41,8 +42,9 @@ namespace CarWashPOI
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
 
-            // Admin role and user seeder class
+            // Application seeders
             services.AddTransient<AdminRoleAndUserSeeder>();
+            services.AddTransient<TownsCoordinatesSeeding>();
 
             // Application services
             services.AddTransient<ICloudinaryService, CloudinaryService>();
@@ -54,7 +56,7 @@ namespace CarWashPOI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext dbContext, AdminRoleAndUserSeeder adminRoleAndUserSeeder)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext dbContext, AdminRoleAndUserSeeder adminRoleAndUserSeeder, TownsCoordinatesSeeding townsCoordinatesSeeding)
         {
             if (env.IsDevelopment())
             {
@@ -87,6 +89,7 @@ namespace CarWashPOI
 
             adminRoleAndUserSeeder.CreateAdminRole();
             adminRoleAndUserSeeder.CreateAdminUser();
+            townsCoordinatesSeeding.SeedTownsCoordinates();
         }
     }
 }

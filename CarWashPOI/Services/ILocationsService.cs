@@ -22,5 +22,7 @@ namespace CarWashPOI.Services
         Task<RatingOutputModel> GetLocationRatingAsync(int locationId);
 
         Task<HomePageOutputModel> GetLocationsAsync(int townId, int typeId, string orderBy, int skip, int take);
+
+        Task<IEnumerable<LocationRestResponseModel>> GetLocationsByTypeAsync(int locationTypeId);
     }
 }

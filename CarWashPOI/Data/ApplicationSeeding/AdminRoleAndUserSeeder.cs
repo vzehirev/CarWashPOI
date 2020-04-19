@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 
-namespace CarWashPOI.Data
+namespace CarWashPOI.Data.ApplicationSeeding
 {
     public class AdminRoleAndUserSeeder
     {
@@ -22,29 +22,29 @@ namespace CarWashPOI.Data
 
         public void CreateAdminRole()
         {
-            IdentityRole adminRole = roleManager.FindByNameAsync("admin").GetAwaiter().GetResult();
+            IdentityRole adminRole = roleManager.FindByNameAsync(configuration["AdminUser:AdminRoleName"]).GetAwaiter().GetResult();
 
             if (adminRole == null)
             {
-                adminRole = new IdentityRole("admin");
+                adminRole = new IdentityRole(configuration["AdminUser:AdminRoleName"]);
                 roleManager.CreateAsync(adminRole).GetAwaiter().GetResult();
             }
         }
 
         public void CreateAdminUser()
         {
-            ApplicationUser adminUser = userManager.FindByNameAsync("admin").GetAwaiter().GetResult();
+            ApplicationUser adminUser = userManager.FindByNameAsync(configuration["AdminUser:Username"]).GetAwaiter().GetResult();
 
             if (adminUser == null)
             {
                 adminUser = new ApplicationUser
                 {
-                    UserName = configuration["AdminUserCredentials:Username"],
-                    Email = configuration["AdminUserCredentials:Email"]
+                    UserName = configuration["AdminUser:Username"],
+                    Email = configuration["AdminUser:Email"]
                 };
-                userManager.CreateAsync(adminUser, configuration["AdminUserCredentials:Password"]).GetAwaiter().GetResult(); ;
+                userManager.CreateAsync(adminUser, configuration["AdminUser:Password"]).GetAwaiter().GetResult(); ;
 
-                userManager.AddToRoleAsync(adminUser, "admin").GetAwaiter().GetResult();
+                userManager.AddToRoleAsync(adminUser, configuration["AdminUser:AdminRoleName"]).GetAwaiter().GetResult();
             }
         }
     }
