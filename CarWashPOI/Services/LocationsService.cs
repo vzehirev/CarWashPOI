@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using CarWashPOI.Areas.Administration.ViewModels.Locations;
 using CarWashPOI.Data;
 using CarWashPOI.Data.Models;
 using CarWashPOI.ViewModels;
@@ -136,6 +137,11 @@ namespace CarWashPOI.Services
                 .ToArrayAsync();
 
             return locations;
+        }
+
+        public Task<IEnumerable<LocationForApprovalOutputModel>> GetNonApprovedLocationsAsync()
+        {
+            throw new System.NotImplementedException();
         }
 
         public async Task<int> RateLocationAsync(int locationId, string userId, bool isPositive)

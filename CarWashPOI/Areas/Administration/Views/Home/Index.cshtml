@@ -1,4 +1,4 @@
-﻿
+﻿@model CarWashPOI.Areas.Administration.ViewModels.AdministrationIndexOutputModel
 @{
     ViewData["Title"] = "Администрация";
 }
@@ -16,8 +16,11 @@
             </thead>
             <tbody>
                 <tr class="table-primary">
-                    <th scope="row">Заглавие</th>
-                    <td>БУТОН</td>
+                    @foreach (var location in Model.LocationsForApproval)
+                    {
+                        <th scope="row">@location.Title</th>
+                        <td>БУТОН - @location.Id</td>
+                    }
                 </tr>
             </tbody>
         </table>
@@ -32,8 +35,11 @@
             </thead>
             <tbody>
                 <tr class="table-primary">
-                    <th scope="row">Заглавие</th>
-                    <td>БУТОН</td>
+                    @foreach (var article in Model.ArticlesForApproval)
+                    {
+                        <th scope="row">@article.Title</th>
+                        <td>БУТОН - @article.Id</td>
+                    }
                 </tr>
             </tbody>
         </table>

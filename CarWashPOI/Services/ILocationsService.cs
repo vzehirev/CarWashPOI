@@ -1,4 +1,5 @@
-﻿using CarWashPOI.ViewModels;
+﻿using CarWashPOI.Areas.Administration.ViewModels.Locations;
+using CarWashPOI.ViewModels;
 using CarWashPOI.ViewModels.Coordinates;
 using CarWashPOI.ViewModels.Locations;
 using CarWashPOI.ViewModels.Ratings;
@@ -24,5 +25,7 @@ namespace CarWashPOI.Services
         Task<HomePageOutputModel> GetLocationsAsync(int townId, int typeId, string orderBy, int skip, int take);
 
         Task<IEnumerable<LocationRestResponseModel>> GetLocationsByTypeAsync(int locationTypeId);
+
+        Task<IEnumerable<LocationForApprovalOutputModel>> GetNonApprovedLocationsAsync();
     }
 }

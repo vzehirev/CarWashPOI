@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CarWashPOI.Data.Models
 {
-    public class Location : IDeleteableEntity
+    public class Location : IDeleteableEntity, IApproveableEntity
     {
         [Key, Required]
         public int Id { get; set; }
@@ -36,5 +36,7 @@ namespace CarWashPOI.Data.Models
         public DateTime AddedOn { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public bool IsApproved { get; set; }
     }
 }
