@@ -13,12 +13,10 @@ namespace CarWashPOI.Controllers.Rest
     public class LocationsRestController : ControllerBase
     {
         private readonly ILocationsService locationsService;
-        private readonly UserManager<ApplicationUser> userManager;
 
         public LocationsRestController(ILocationsService locationsService, UserManager<ApplicationUser> userManager)
         {
             this.locationsService = locationsService;
-            this.userManager = userManager;
         }
 
         [HttpGet]
@@ -35,19 +33,6 @@ namespace CarWashPOI.Controllers.Rest
             ViewModels.Coordinates.CoordinatesOutputModel locationCoordinates = await locationsService.GetLocationCoordinatesAsync(locationId);
 
             return new JsonResult(locationCoordinates);
-        }
-
-        [Authorize]
-        [HttpPost("{locationId:int}")]
-        public async Task<IActionResult> RatePositive(int locationId, [FromForm] bool isPositive)
-        {
-            string userId = userManager.GetUserId(User);
-
-            await locationsService.RateLocationAsync(locationId, userId, isPositive);
-
-            ViewModels.Ratings.RatingOutputModel newLocationRating = await locationsService.GetLocationRatingAsync(locationId);
-
-            return new JsonResult(newLocationRating);
         }
 
         [HttpGet("ByType/{locationTypeId:int}")]

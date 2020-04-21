@@ -13,7 +13,7 @@
     function rateLocation(locationId, isPositive) {
         $.ajax({
             method: "POST",
-            url: `/Rest/Locations/${locationId}`,
+            url: `/Rest/Rate/${locationId}`,
             data: { isPositive: isPositive }
         })
             .done(function (response) {

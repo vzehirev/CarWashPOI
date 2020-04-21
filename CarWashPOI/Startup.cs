@@ -53,6 +53,7 @@ namespace CarWashPOI
             services.AddTransient<ITownsService, TownsService>();
             services.AddTransient<ILocationTypesService, LocationTypesService>();
             services.AddTransient<ICommentsService, CommentsService>();
+            services.AddTransient<IArticlesService, ArticlesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -80,8 +81,13 @@ namespace CarWashPOI
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "Administration",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
                 endpoints.MapRazorPages();
             });
 

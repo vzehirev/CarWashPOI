@@ -85,3 +85,12 @@ body {
     max-height:2.5rem;
     margin-top:1.9rem;
 }
+
+#orderBtn {
+    max-height: 2.5rem;
+    margin-top: 1.9rem;
+}
+
+.tox-notifications-container {
+    display: none;
+}

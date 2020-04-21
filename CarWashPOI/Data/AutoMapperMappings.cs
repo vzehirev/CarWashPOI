@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using CarWashPOI.Data.Models;
 using CarWashPOI.ViewModels.Addresses;
+using CarWashPOI.ViewModels.Articles;
 using CarWashPOI.ViewModels.Comments;
 using CarWashPOI.ViewModels.Coordinates;
 using CarWashPOI.ViewModels.Locations;
 using CarWashPOI.ViewModels.LocationTypes;
 using CarWashPOI.ViewModels.Ratings;
 using CarWashPOI.ViewModels.Towns;
+using System;
 using System.Linq;
 
 namespace CarWashPOI.Data
@@ -57,6 +59,15 @@ namespace CarWashPOI.Data
             CreateMap<Town, CoordinatesOutputModel>()
                 .ForMember(dest => dest.Latitude, opt => opt.MapFrom(src => src.Coordinates.Latitude))
                 .ForMember(dest => dest.Longitude, opt => opt.MapFrom(src => src.Coordinates.Longitude));
+
+            CreateMap<AddArticleViewModel, Article>()
+                .ForMember(dest => dest.LastModified, opt => opt.MapFrom(src => DateTime.UtcNow));
+
+            CreateMap<Article, ReadArticleOutputModel>()
+                .ForMember(dest => dest.User, opt => opt.MapFrom(src => src.User.UserName));
+
+            CreateMap<Article, ArticleOutputModel>()
+                .ForMember(dest => dest.AddedOn, opt => opt.MapFrom(src => src.LastModified));
         }
     }
 }
