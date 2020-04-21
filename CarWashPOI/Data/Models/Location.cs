@@ -21,18 +21,19 @@ namespace CarWashPOI.Data.Models
         public int AddressId { get; set; }
         public virtual Address Address { get; set; }
 
+        public int? ImageId { get; set; }
+        public virtual Image Image { get; set; }
+
         [Required]
         public int LocationTypeId { get; set; }
         public virtual LocationType LocationType { get; set; }
-
-        public virtual ICollection<Image> Images { get; set; } = new HashSet<Image>();
 
         public virtual ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
 
         public virtual ICollection<Rating> Ratings { get; set; } = new HashSet<Rating>();
 
         [Required]
-        public DateTime LastModified { get; set; }
+        public DateTime AddedOn { get; set; }
 
         public bool IsDeleted { get; set; }
     }

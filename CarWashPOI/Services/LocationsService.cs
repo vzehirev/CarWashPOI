@@ -31,17 +31,14 @@ namespace CarWashPOI.Services
             Location locationToAdd = mapper.Map<Location>(addLocationViewModel);
 
             const int maxImageSize = 1024 * 1024 * 10;
-            if (addLocationViewModel.Files != null)
+            if (addLocationViewModel.Image != null)
             {
-                foreach (Microsoft.AspNetCore.Http.IFormFile image in addLocationViewModel.Files)
+                if (addLocationViewModel.Image.ContentType.ToLower().Contains("image") && addLocationViewModel.Image.Length <= maxImageSize)
                 {
-                    if (image.ContentType.ToUpper().Contains("IMAGE") && image.Length <= maxImageSize)
+                    using (System.IO.Stream imageFileStream = addLocationViewModel.Image.OpenReadStream())
                     {
-                        using (System.IO.Stream imageFileStream = image.OpenReadStream())
-                        {
-                            string imageUrl = await imagesService.UploadImageAsync(imageFileStream);
-                            locationToAdd.Images.Add(new Image { Url = imageUrl });
-                        }
+                        string imageUrl = await imagesService.UploadImageAsync(imageFileStream);
+                        locationToAdd.Image = new Image { Url = imageUrl };
                     }
                 }
             }
@@ -117,10 +114,10 @@ namespace CarWashPOI.Services
             }
             else
             {
-                query = query.OrderByDescending(l => l.LastModified);
+                query = query.OrderByDescending(l => l.AddedOn);
             }
 
-            outputModel.AllCases = await query.CountAsync();
+            outputModel.AllLocations = await query.CountAsync();
 
             outputModel.Locations = await query
                 .Skip(skip)

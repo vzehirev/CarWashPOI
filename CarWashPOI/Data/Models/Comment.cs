@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CarWashPOI.Data.Models
 {
-    public class Comment : IDeleteableEntity
+    public class Comment
     {
         [Key, Required]
         public int Id { get; set; }
@@ -20,8 +20,6 @@ namespace CarWashPOI.Data.Models
         public string Content { get; set; }
 
         [Required]
-        public DateTime LastModified { get; set; }
-
-        public bool IsDeleted { get; set; }
+        public DateTime AddedOn { get; set; }
     }
 }

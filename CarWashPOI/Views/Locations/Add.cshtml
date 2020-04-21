@@ -51,9 +51,9 @@
             <input asp-for="@Model.Street" class="form-control" />
             <span asp-validation-for="@Model.Street" class="text-danger"></span>
         </div>
-        <label asp-for="@Model.Files"></label>
+        <label asp-for="@Model.Image"></label>
         <div class="custom-file">
-            <input asp-for="@Model.Files" type="file" id="customFile" class="custom-file-input" multiple>
+            <input asp-for="@Model.Image" type="file" id="customFile" class="custom-file-input">
             <label id="customFileLabel" class="custom-file-label" for="customFile">Избери файл</label>
         </div>
         <input id="latitude" asp-for="@Model.Latitude" hidden />

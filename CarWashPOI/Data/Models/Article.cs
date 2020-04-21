@@ -19,10 +19,11 @@ namespace CarWashPOI.Data.Models
         public string UserId { get; set; }
         public virtual ApplicationUser User { get; set; }
 
-        public virtual ICollection<Image> Images { get; set; } = new HashSet<Image>();
+        public int? ImageId { get; set; }
+        public virtual Image Image { get; set; }
 
         [Required]
-        public DateTime LastModified { get; set; }
+        public DateTime AddedOn { get; set; }
 
         [Required]
         public int Views { get; set; }

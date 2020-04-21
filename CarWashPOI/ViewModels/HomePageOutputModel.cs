@@ -23,6 +23,6 @@ namespace CarWashPOI.ViewModels
 
         public int LastPage { get; set; }
 
-        public int AllCases { get; set; }
+        public int AllLocations { get; set; }
     }
 }

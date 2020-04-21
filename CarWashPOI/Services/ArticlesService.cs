@@ -49,7 +49,7 @@ namespace CarWashPOI.Services
             }
             else
             {
-                query = query.OrderByDescending(a => a.LastModified);
+                query = query.OrderByDescending(a => a.AddedOn);
             }
 
             var outputModel = new ArticlesIndexOutputModel

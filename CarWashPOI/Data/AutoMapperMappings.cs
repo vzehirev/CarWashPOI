@@ -23,7 +23,8 @@ namespace CarWashPOI.Data
 
             CreateMap<AddLocationViewModel, Location>()
                 .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src))
-                .ForMember(dest => dest.Coordinates, opt => opt.MapFrom(src => src));
+                .ForMember(dest => dest.Coordinates, opt => opt.MapFrom(src => src))
+                .ForMember(dest => dest.Image, opt => opt.Ignore());
 
             CreateMap<AddLocationViewModel, Address>();
 
@@ -51,7 +52,8 @@ namespace CarWashPOI.Data
                 .ForMember(dest => dest.Latitude, opt => opt.MapFrom(src => src.Coordinates.Latitude))
                 .ForMember(dest => dest.Longitude, opt => opt.MapFrom(src => src.Coordinates.Longitude));
 
-            CreateMap<Location, LocationOutputModel>();
+            CreateMap<Location, LocationOutputModel>()
+                .ForMember(dest => dest.Rating, opt => opt.MapFrom(src => src));
 
             CreateMap<Address, HomePageAddressOutputModel>()
                 .ForMember(dest => dest.Town, opt => opt.MapFrom(src => src.Town.Name));
@@ -61,13 +63,13 @@ namespace CarWashPOI.Data
                 .ForMember(dest => dest.Longitude, opt => opt.MapFrom(src => src.Coordinates.Longitude));
 
             CreateMap<AddArticleViewModel, Article>()
-                .ForMember(dest => dest.LastModified, opt => opt.MapFrom(src => DateTime.UtcNow));
+                .ForMember(dest => dest.AddedOn, opt => opt.MapFrom(src => DateTime.UtcNow));
 
             CreateMap<Article, ReadArticleOutputModel>()
                 .ForMember(dest => dest.User, opt => opt.MapFrom(src => src.User.UserName));
 
             CreateMap<Article, ArticleOutputModel>()
-                .ForMember(dest => dest.AddedOn, opt => opt.MapFrom(src => src.LastModified));
+                .ForMember(dest => dest.AddedOn, opt => opt.MapFrom(src => src.AddedOn));
         }
     }
 }

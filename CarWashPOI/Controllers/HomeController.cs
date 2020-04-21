@@ -44,12 +44,12 @@ namespace CarWashPOI.Controllers
             homePageOutputModel.SelectedTypeId = inputModel.TypeId;
             homePageOutputModel.SelectedOrderBy = inputModel.OrderBy;
 
-            if (homePageOutputModel.AllCases == 0)
+            if (homePageOutputModel.AllLocations == 0)
             {
                 return View(homePageOutputModel);
             }
 
-            int lastPage = (int)Math.Ceiling(((double)homePageOutputModel.AllCases / resultsPerPage));
+            int lastPage = (int)Math.Ceiling(((double)homePageOutputModel.AllLocations / resultsPerPage));
 
             if (inputModel.Page > lastPage)
             {

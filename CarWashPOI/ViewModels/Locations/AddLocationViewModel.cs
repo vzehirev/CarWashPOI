@@ -31,8 +31,8 @@ namespace CarWashPOI.ViewModels.Locations
 
         public double Longitude { get; set; }
 
-        [Display(Name = "Снимки")]
-        public List<IFormFile> Files { get; set; }
+        [Display(Name = "Снимка")]
+        public IFormFile Image { get; set; }
 
         public IEnumerable<LocationTypeViewModel> AllLocationTypes { get; set; }
 

@@ -8,8 +8,8 @@ namespace CarWashPOI.Services
 {
     public class ImagesService : IImagesService
     {
-        private const int maxImageWidth = 900;
-        private const int maxImageHeight = 900;
+        private const int maxImageWidth = 550;
+        private const int maxImageHeight = 550;
         private readonly ICloudinaryService cloudinaryService;
 
         public ImagesService(ICloudinaryService cloudinaryService)
@@ -22,7 +22,7 @@ namespace CarWashPOI.Services
             ImageUploadParams imageUploadParams = new ImageUploadParams()
             {
                 File = new FileDescription(Guid.NewGuid().ToString(), imageFileStream),
-                Folder = "WashLocations",
+                Folder = "CarWashPOI",
                 Transformation = new Transformation().Width(maxImageWidth).Height(maxImageHeight).Crop("limit"),
             };
 

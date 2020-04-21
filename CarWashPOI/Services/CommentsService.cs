@@ -21,7 +21,7 @@ namespace CarWashPOI.Services
                 UserId = userId,
                 LocationId = locationId,
                 Content = comment,
-                LastModified = DateTime.UtcNow,
+                AddedOn = DateTime.UtcNow,
             };
 
             dbContext.Comments.Add(commentToAdd);

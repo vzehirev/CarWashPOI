@@ -20,7 +20,9 @@ namespace CarWashPOI.ViewModels.Locations
 
         public RatingOutputModel Rating { get; set; }
 
-        public DateTime LastModified { get; set; }
+        public DateTime AddedOn { get; set; }
+
+        public string ImageUrl { get; set; }
 
         public IEnumerable<CommentOutputModel> Comments { get; set; }
     }
