@@ -1,4 +1,5 @@
-﻿using CarWashPOI.Services;
+﻿using CarWashPOI.Data.Models;
+using CarWashPOI.Services;
 using CarWashPOI.ViewModels.Locations;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -42,17 +43,19 @@ namespace CarWashPOI.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(AddLocationViewModel addLocationViewModel)
         {
-            if (ModelState.IsValid)
-            {
-                int locationId = await locationsService.AddAsync(addLocationViewModel);
-                return RedirectToAction(nameof(LocationDetails), new { id = locationId });
-            }
-            else
+            if (!ModelState.IsValid)
             {
                 addLocationViewModel.AllLocationTypes = await locationTypesService.GetAllLocationTypesAsync();
                 addLocationViewModel.AllTowns = await townsService.GetAllTownsAsync();
                 return View(addLocationViewModel);
             }
+
+            int locationId = await locationsService.AddAsync(addLocationViewModel);
+            if (locationId > 0)
+            {
+                TempData["locationAdded"] = true;
+            }
+            return LocalRedirect("/#locationAdded");
         }
     }
 }

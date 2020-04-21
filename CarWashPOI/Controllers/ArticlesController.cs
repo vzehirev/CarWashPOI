@@ -78,7 +78,12 @@ namespace CarWashPOI.Controllers
 
             var articleId = await articlesService.AddArticleAsync(inputModel);
 
-            return RedirectToAction(nameof(ReadArticle), new { articleId });
+            if (articleId > 0)
+            {
+                TempData["articleAdded"] = true;
+            }
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

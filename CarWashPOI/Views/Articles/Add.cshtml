@@ -8,14 +8,15 @@
     <h3 class="my-4">@ViewData["Title"]</h3>
     <form asp-controller="Articles" asp-action="Add" enctype="multipart/form-data" method="post" class="w-75 mx-auto">
         <div class="form-group">
-            <input asp-for="Title" class="form-control form-control-lg" type="text" placeholder="Заглавие">
             <span asp-validation-for="Title" class="text-danger"></span>
+            <input asp-for="Title" class="form-control form-control-lg" type="text" placeholder="Заглавие">
         </div>
-        <textarea asp-for="Content" rows="21"></textarea>
         <span asp-validation-for="Content" class="text-danger"></span>
+        <textarea asp-for="Content" rows="21"></textarea>
+        <br />
         <div class="custom-file w-50 mt-4">
             <input asp-for="@Model.Image" type="file" id="customFile" class="custom-file-input">
-            <label id="customFileLabel" class="custom-file-label" for="customFile">Избери файл</label>
+            <label id="customFileLabel" class="custom-file-label" for="customFile">Избери заглавна снимка</label>
         </div>
         <div>
             <button type="submit" class="btn btn-warning my-4">Публикувай</button>

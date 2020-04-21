@@ -1,6 +1,7 @@
 ﻿@model CarWashPOI.ViewModels.Articles.ReadArticleOutputModel
 
 <div class="jumbotron p-1 w-75 mx-auto my-4">
+    <img style="width: 100%;" class="rounded" src="@Model.ImageUrl" />
     <h4 class="display-4 text-center">@Model.Title</h4>
     <p class="lead text-center">Добавена на @Model.AddedOn от @Model.User. @Model.Views прочитания.</p>
     <hr class="my-4">

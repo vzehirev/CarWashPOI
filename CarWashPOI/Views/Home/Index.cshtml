@@ -5,6 +5,15 @@
 }
 
 <div id="map" class="mb-4"></div>
+
+@if (TempData["locationAdded"] as bool? == true)
+{
+    <div id="locationAdded" class="alert alert-dismissible alert-success col-md-4 text-center mx-auto">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        Локацията беше добавена успешно и ще бъде видима след одобрение от администратор.
+    </div>
+}
+
 <div class="row mx-auto justify-content-center text-center mb-4">
     <a asp-controller="Locations" asp-action="Add" class="btn btn-outline-success">Добави нова локация</a>
 </div>
@@ -49,7 +58,7 @@
                 <h5 class="card-subtitle text-muted mb-2">+ @location.Rating.Positives / - @location.Rating.Negatives</h5>
                 <h6 class="card-subtitle text-muted">@location.AddedOn</h6>
             </div>
-            <img style="width: 100%; display: block;" src="@location.ImageUrl" alt="Card image">
+            <img style="width:100%; height: 19rem; object-fit: cover; object-position: center;" src="@location.ImageUrl" alt="Card image">
             <div class="card-body">
             </div>
             <div class="card-footer text-muted">

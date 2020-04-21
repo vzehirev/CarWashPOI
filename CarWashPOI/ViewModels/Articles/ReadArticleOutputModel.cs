@@ -18,5 +18,7 @@ namespace CarWashPOI.ViewModels.Articles
         public string User { get; set; }
 
         public int Views { get; set; }
+
+        public string ImageUrl { get; set; }
     }
 }

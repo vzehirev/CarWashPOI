@@ -9,10 +9,10 @@ namespace CarWashPOI.ViewModels.Articles
 {
     public class AddArticleViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Полето Заглавие е задължително.")]
         public string Title { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Статията трябва да има съдържание.")]
         public string Content { get; set; }
 
         public string UserId { get; set; }

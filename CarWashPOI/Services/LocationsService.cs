@@ -81,6 +81,7 @@ namespace CarWashPOI.Services
         public async Task<IEnumerable<LocationRestResponseModel>> GetAllLocationsAsync()
         {
             LocationRestResponseModel[] allLocations = await dbContext.Locations
+                .Where(l=>l.IsApproved && !l.IsDeleted)
                 .ProjectTo<LocationRestResponseModel>(mapper.ConfigurationProvider)
                 .ToArrayAsync();
 
@@ -160,7 +161,7 @@ namespace CarWashPOI.Services
         public async Task<IEnumerable<LocationRestResponseModel>> GetLocationsByTypeAsync(int locationTypeId)
         {
             LocationRestResponseModel[] locations = await dbContext.Locations
-                .Where(l => l.LocationTypeId == locationTypeId)
+                .Where(l => l.IsApproved && !l.IsDeleted && l.LocationTypeId == locationTypeId)
                 .ProjectTo<LocationRestResponseModel>(mapper.ConfigurationProvider)
                 .ToArrayAsync();
 

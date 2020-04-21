@@ -8,8 +8,8 @@ namespace CarWashPOI.Services
 {
     public class ImagesService : IImagesService
     {
-        private const int maxImageWidth = 550;
-        private const int maxImageHeight = 550;
+        private const int maxImageWidth = 2100;
+        private const int maxImageHeight = 2100;
         private readonly ICloudinaryService cloudinaryService;
 
         public ImagesService(ICloudinaryService cloudinaryService)

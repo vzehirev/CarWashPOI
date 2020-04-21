@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Добави локация";
 }
-
+<h5 class="text-secondary my-2 text-center">Отбележете локацията на картата като кликнете с мишката.</h5>
 <div id="map" class="mb-4"></div>
 
 <h1 class="mx-auto justify-content-center text-center">@ViewData["Title"]</h1>
@@ -10,7 +10,9 @@
 <div class="col-md-4 mx-auto justify-content-center text-center">
     <hr />
     <form asp-controller="Locations" asp-action="Add" enctype="multipart/form-data" method="post">
-        <div asp-validation-summary="All" class="text-danger"></div>
+        <input id="latitude" asp-for="@Model.Latitude" hidden />
+        <input id="longitude" asp-for="@Model.Longitude" hidden />
+        <span asp-validation-for="Latitude" class="text-danger"></span>
         <div class="form-group">
             <label asp-for="@Model.LocationTypeId"></label>
             <select asp-for="@Model.LocationTypeId" class="custom-select">
@@ -20,16 +22,15 @@
                     <option value="@locationType.Id">@locationType.Type</option>
                 }
             </select>
+            <span asp-validation-for="LocationTypeId" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="@Model.Title"></label>
             <input asp-for="@Model.Title" class="form-control" />
-            <span asp-validation-for="@Model.Title" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="@Model.Description"></label>
             <textarea asp-for="@Model.Description" class="form-control" rows="5"></textarea>
-            <span asp-validation-for="@Model.Description" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="@Model.TownId"></label>
@@ -40,6 +41,7 @@
                     <option value="@town.Id">@town.Name</option>
                 }
             </select>
+            <span asp-validation-for="TownId" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="@Model.Neighbourhood"></label>
@@ -49,15 +51,12 @@
         <div class="form-group">
             <label asp-for="@Model.Street"></label>
             <input asp-for="@Model.Street" class="form-control" />
-            <span asp-validation-for="@Model.Street" class="text-danger"></span>
         </div>
         <label asp-for="@Model.Image"></label>
         <div class="custom-file">
             <input asp-for="@Model.Image" type="file" id="customFile" class="custom-file-input">
             <label id="customFileLabel" class="custom-file-label" for="customFile">Избери файл</label>
         </div>
-        <input id="latitude" asp-for="@Model.Latitude" hidden />
-        <input id="longitude" asp-for="@Model.Longitude" hidden />
         <button type="submit" class="btn btn-success mt-4">Добави локацията</button>
     </form>
 </div>

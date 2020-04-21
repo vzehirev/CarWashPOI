@@ -4,41 +4,48 @@
     ViewData["Title"] = "Блог";
 }
 
-    <div class="justify-content-center text-center">
-        <h1 class="my-3">
-            @ViewData["Title"]
-        </h1>
-        <a asp-controller="Articles" asp-action="Add" class="btn btn-outline-warning btn-sm mb-5">Публикувай нова статия</a>
+<div class="justify-content-center text-center">
+    <h1 class="my-3">
+        @ViewData["Title"]
+    </h1>
+    <a asp-controller="Articles" asp-action="Add" class="btn btn-outline-warning btn-sm mb-5">Публикувай нова статия</a>
 
-        <form class="row mw-100 justify-content-center text-center col-md-8 mx-auto">
-            <div class="form-group col-md-2">
-                <label>Подредба</label>
-                <select asp-for="OrderedBy" name="orderBy" class="custom-select">
-                    <option value="date">Най-скоро добавени</option>
-                    <option value="views">Най-много четени</option>
-                </select>
+    @if (TempData["articleAdded"] as bool? == true)
+    {
+        <div class="alert alert-dismissible alert-success col-md-4 text-center mx-auto">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            Статията беше добавена успешно и ще бъде видима след одобрение от администратор.
+        </div>
+    }
+    <form class="row mw-100 justify-content-center text-center col-md-8 mx-auto">
+        <div class="form-group col-md-2">
+            <label>Подредба</label>
+            <select asp-for="OrderedBy" name="orderBy" class="custom-select">
+                <option value="date">Най-скоро добавени</option>
+                <option value="views">Най-много четени</option>
+            </select>
+        </div>
+        <button id="orderBtn" type="submit" class="btn btn-warning btn-sm">OK</button>
+    </form>
+
+    @foreach (var article in Model.Articles)
+    {
+        <div class="card my-5 mx-auto w-75">
+            <div class="card-body">
+                <h5 class="card-title">@article.Title</h5>
+                <p class="card-text"><small class="text-muted">@article.AddedOn / @article.Views</small></p>
             </div>
-            <button id="orderBtn" type="submit" class="btn btn-warning btn-sm">OK</button>
-        </form>
+            <img style="width:100%; height: 21rem; object-fit: cover; object-position: center;" class="card-img-top" src="@article.ImageUrl" alt="Card image cap">
+            <a asp-controller="Articles" asp-action="ReadArticle" asp-route-articleId="@article.Id" class="btn btn-outline-warning btn-sm mx-auto my-3">Прочети</a>
+        </div>
+    }
 
-        @foreach (var article in Model.Articles)
-        {
-            <div class="card my-5 mx-auto w-75">
-                <div class="card-body">
-                    <h5 class="card-title">@article.Title</h5>
-                    <p class="card-text"><small class="text-muted">@article.AddedOn / @article.Views</small></p>
-                </div>
-                <img style="height: 21rem; object-fit: contain; object-position:top;" class="card-img-top" src="@article.ImageUrl" alt="Card image cap">
-                <a asp-controller="Articles" asp-action="ReadArticle" asp-route-articleId="@article.Id" class="btn btn-outline-warning btn-sm mx-auto my-3">Прочети</a>
-            </div>
-        }
+    @if (Model.Articles.Count() == 0)
+    {
+        <p class="text-secondary">Не бяха открити резултати.</p>
+    }
 
-        @if (Model.Articles.Count() == 0)
-        {
-            <p class="text-secondary">Не бяха открити резултати.</p>
-        }
-
-    </div>
+</div>
 
 @* pagination *@
 

@@ -9,7 +9,7 @@ namespace CarWashPOI.ViewModels.Locations
     public class AddLocationViewModel
     {
 
-        [Required, Display(Name = "Тип*")]
+        [Required(ErrorMessage = "Полето Тип е задължително."), Display(Name = "Тип*")]
         public int LocationTypeId { get; set; }
 
         [Display(Name = "Име")]
@@ -18,7 +18,7 @@ namespace CarWashPOI.ViewModels.Locations
         [Display(Name = "Описание")]
         public string Description { get; set; }
 
-        [Required, Display(Name = "Град*")]
+        [Required(ErrorMessage = "Полето Град е задължително."), Display(Name = "Град*")]
         public int TownId { get; set; }
 
         [Display(Name = "Район")]
@@ -27,9 +27,11 @@ namespace CarWashPOI.ViewModels.Locations
         [Display(Name = "Адрес")]
         public string Street { get; set; }
 
-        public double Latitude { get; set; }
+        [Required(ErrorMessage = "Локацията не е отбелязана с маркер на картата.")]
+        public double? Latitude { get; set; }
 
-        public double Longitude { get; set; }
+        [Required]
+        public double? Longitude { get; set; }
 
         [Display(Name = "Снимка")]
         public IFormFile Image { get; set; }
