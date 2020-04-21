@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,5 +16,7 @@ namespace CarWashPOI.ViewModels.Articles
         public string Content { get; set; }
 
         public string UserId { get; set; }
+
+        public IFormFile Image { get; set; }
     }
 }

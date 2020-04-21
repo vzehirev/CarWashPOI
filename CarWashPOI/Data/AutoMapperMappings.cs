@@ -63,7 +63,8 @@ namespace CarWashPOI.Data
                 .ForMember(dest => dest.Longitude, opt => opt.MapFrom(src => src.Coordinates.Longitude));
 
             CreateMap<AddArticleViewModel, Article>()
-                .ForMember(dest => dest.AddedOn, opt => opt.MapFrom(src => DateTime.UtcNow));
+                .ForMember(dest => dest.AddedOn, opt => opt.MapFrom(src => DateTime.UtcNow))
+                .ForMember(dest => dest.Image, opt => opt.Ignore());
 
             CreateMap<Article, ReadArticleOutputModel>()
                 .ForMember(dest => dest.User, opt => opt.MapFrom(src => src.User.UserName));

@@ -24,12 +24,12 @@
         @foreach (var article in Model.Articles)
         {
             <div class="card my-5 mx-auto w-75">
-                <img class="card-img-top" src="..." alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">@article.Title</h5>
                     <p class="card-text"><small class="text-muted">@article.AddedOn / @article.Views</small></p>
                 </div>
-                <a asp-controller="Articles" asp-action="ReadArticle" asp-route-articleId="@article.Id" class="btn btn-outline-warning btn-sm mx-auto mb-3">Прочети</a>
+                <img style="height: 21rem; object-fit: contain; object-position:top;" class="card-img-top" src="@article.ImageUrl" alt="Card image cap">
+                <a asp-controller="Articles" asp-action="ReadArticle" asp-route-articleId="@article.Id" class="btn btn-outline-warning btn-sm mx-auto my-3">Прочети</a>
             </div>
         }
 

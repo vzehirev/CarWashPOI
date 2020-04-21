@@ -15,15 +15,31 @@ namespace CarWashPOI.Services
     {
         private readonly ApplicationDbContext dbContext;
         private readonly IMapper mapper;
+        private readonly IImagesService imagesService;
 
-        public ArticlesService(ApplicationDbContext dbContext, IMapper mapper)
+        public ArticlesService(ApplicationDbContext dbContext, IMapper mapper, IImagesService imagesService)
         {
             this.dbContext = dbContext;
             this.mapper = mapper;
+            this.imagesService = imagesService;
         }
         public async Task<int> AddArticleAsync(AddArticleViewModel inputModel)
         {
             var articleToAdd = mapper.Map<Article>(inputModel);
+
+            const int maxImageSize = 1024 * 1024 * 10;
+
+            if (inputModel.Image != null)
+            {
+                if (inputModel.Image.ContentType.ToLower().Contains("image") && inputModel.Image.Length <= maxImageSize)
+                {
+                    using (System.IO.Stream imageFileStream = inputModel.Image.OpenReadStream())
+                    {
+                        string imageUrl = await imagesService.UploadImageAsync(imageFileStream);
+                        articleToAdd.Image = new Image { Url = imageUrl };
+                    }
+                }
+            }
 
             dbContext.Articles.Add(articleToAdd);
             await dbContext.SaveChangesAsync();
