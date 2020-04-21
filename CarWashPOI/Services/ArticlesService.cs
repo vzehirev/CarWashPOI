@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using CarWashPOI.Areas.Administration.ViewModels.Articles;
 using CarWashPOI.Data;
 using CarWashPOI.Data.Models;
 using CarWashPOI.ViewModels.Articles;
@@ -47,6 +48,34 @@ namespace CarWashPOI.Services
             return articleToAdd.Id;
         }
 
+        public async Task<int> ApproveArticleAsync(int id)
+        {
+            var article = await dbContext.Articles
+                .Where(a => a.Id == id)
+                .FirstOrDefaultAsync();
+
+            if (article != null)
+            {
+                article.IsApproved = true;
+            }
+
+            return await dbContext.SaveChangesAsync();
+        }
+
+        public async Task<int> DeleteArticleAsync(int id)
+        {
+            var article = await dbContext.Articles
+                .Where(a => a.Id == id)
+                .FirstOrDefaultAsync();
+
+            if (article != null)
+            {
+                article.IsDeleted = true;
+            }
+
+            return await dbContext.SaveChangesAsync();
+        }
+
         public async Task<ReadArticleOutputModel> GetArticleByIdAsync(int articleId)
         {
             return await dbContext.Articles
@@ -57,7 +86,7 @@ namespace CarWashPOI.Services
 
         public async Task<ArticlesIndexOutputModel> GetArticlesAsync(int skip, int take, string orderBy)
         {
-            var query = dbContext.Articles.AsQueryable();
+            var query = dbContext.Articles.Where(a => a.IsApproved && !a.IsDeleted).AsQueryable();
 
             if (orderBy == "views")
             {
@@ -80,6 +109,14 @@ namespace CarWashPOI.Services
             };
 
             return outputModel;
+        }
+
+        public async Task<IEnumerable<ArticleForApprovalOutputModel>> GetNonApprovedArticlesAsync()
+        {
+            return await dbContext.Articles
+                .Where(a => !a.IsApproved && !a.IsDeleted)
+                .ProjectTo<ArticleForApprovalOutputModel>(mapper.ConfigurationProvider)
+                .ToArrayAsync();
         }
     }
 }

@@ -26,9 +26,10 @@ namespace CarWashPOI.Areas.Administration.Controllers
             var outputModel = new AdministrationIndexOutputModel
             {
                 LocationsForApproval = await locationsService.GetNonApprovedLocationsAsync(),
-                //ArticlesForApproval = await articlesService.GetNonApprovedArticlesAsync(),
+                ArticlesForApproval = await articlesService.GetNonApprovedArticlesAsync(),
             };
-            return View();
+
+            return View(outputModel);
         }
     }
 }

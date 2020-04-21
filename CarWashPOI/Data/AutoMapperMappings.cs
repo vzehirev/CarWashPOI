@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using CarWashPOI.Areas.Administration.ViewModels.Articles;
+using CarWashPOI.Areas.Administration.ViewModels.Locations;
 using CarWashPOI.Data.Models;
 using CarWashPOI.ViewModels.Addresses;
 using CarWashPOI.ViewModels.Articles;
@@ -71,6 +73,10 @@ namespace CarWashPOI.Data
 
             CreateMap<Article, ArticleOutputModel>()
                 .ForMember(dest => dest.AddedOn, opt => opt.MapFrom(src => src.AddedOn));
+
+            CreateMap<Location, LocationForApprovalOutputModel>();
+
+            CreateMap<Article, ArticleForApprovalOutputModel>();
         }
     }
 }

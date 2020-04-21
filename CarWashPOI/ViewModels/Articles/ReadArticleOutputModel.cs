@@ -7,6 +7,8 @@ namespace CarWashPOI.ViewModels.Articles
 {
     public class ReadArticleOutputModel
     {
+        public int Id { get; set; }
+
         public string Title { get; set; }
 
         public string Content { get; set; }

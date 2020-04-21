@@ -50,6 +50,34 @@ namespace CarWashPOI.Services
             return locationToAdd.Id;
         }
 
+        public async Task<int> ApproveLocationAsync(int id)
+        {
+            var location = await dbContext.Locations
+                .Where(l => l.Id == id)
+                .FirstOrDefaultAsync();
+
+            if (location!=null)
+            {
+                location.IsApproved = true;
+            }
+
+            return await dbContext.SaveChangesAsync();
+        }
+
+        public async Task<int> DeleteLocationAsync(int id)
+        {
+            var location = await dbContext.Locations
+                .Where(l => l.Id == id)
+                .FirstOrDefaultAsync();
+
+            if (location != null)
+            {
+                location.IsDeleted = true;
+            }
+
+            return await dbContext.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<LocationRestResponseModel>> GetAllLocationsAsync()
         {
             LocationRestResponseModel[] allLocations = await dbContext.Locations
@@ -91,7 +119,7 @@ namespace CarWashPOI.Services
         {
             HomePageOutputModel outputModel = new HomePageOutputModel();
 
-            IQueryable<Location> query = dbContext.Locations.AsQueryable();
+            IQueryable<Location> query = dbContext.Locations.Where(l => l.IsApproved && !l.IsDeleted).AsQueryable();
 
             if (townId != 0)
             {
@@ -139,9 +167,12 @@ namespace CarWashPOI.Services
             return locations;
         }
 
-        public Task<IEnumerable<LocationForApprovalOutputModel>> GetNonApprovedLocationsAsync()
+        public async Task<IEnumerable<LocationForApprovalOutputModel>> GetNonApprovedLocationsAsync()
         {
-            throw new System.NotImplementedException();
+            return await dbContext.Locations
+                .Where(l => !l.IsApproved && !l.IsDeleted)
+                .ProjectTo<LocationForApprovalOutputModel>(mapper.ConfigurationProvider)
+                .ToArrayAsync();
         }
 
         public async Task<int> RateLocationAsync(int locationId, string userId, bool isPositive)
