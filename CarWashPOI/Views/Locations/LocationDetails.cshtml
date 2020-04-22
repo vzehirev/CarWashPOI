@@ -1,7 +1,7 @@
 ﻿@model CarWashPOI.ViewModels.Locations.LocationDetailsOutputModel
 @using System.Globalization;
 @{
-    ViewData["Title"] = "LocationDetails";
+    ViewData["Title"] = Model.Title;
 }
 
 <div id="map" class="mb-4"></div>
@@ -18,6 +18,7 @@
                 /
                 <button id="negativeRating" class="btn btn-danger btn-sm ml-2">- @Model.Rating.Negatives</button>
             </h4>
+            <span id="rateMessage" class="text-warning"></span>
         </div>
     </div>
     <div class="card border-success m-3  col-md-4 p-0" style="max-width: 20rem;">

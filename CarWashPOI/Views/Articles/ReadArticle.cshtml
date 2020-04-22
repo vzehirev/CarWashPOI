@@ -1,5 +1,9 @@
 ﻿@model CarWashPOI.ViewModels.Articles.ReadArticleOutputModel
 
+@{
+    ViewData["Title"] = Model.Title;
+}
+
 <div class="jumbotron p-1 w-75 mx-auto my-4">
     <input id="articleId" type="hidden" value="@Model.Id" />
     <img style="width: 100%;" class="rounded" src="@Model.ImageUrl" />
@@ -8,7 +12,6 @@
     <hr class="my-4">
     <div class="px-4">@Html.Raw(Model.Content)</div>
 </div>
-
 
 @section Scripts{
     <partial name="IncreaseArticleViewsJsPartial" />

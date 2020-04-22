@@ -9,6 +9,12 @@
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Здравей @User.Identity.Name!</a>
             </li>
+            if (User.IsInRole("admin"))
+            {
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="Administration" asp-controller="Home" asp-action="Index">Администрация</a>
+                </li>
+            }
             <li class="nav-item">
                 <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                     <button type="submit" class="nav-link btn btn-link text-dark">Излез</button>

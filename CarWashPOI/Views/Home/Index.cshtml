@@ -103,7 +103,6 @@
         }
 
         @{
-            // -5 and +5 so it can show 5 pages before and 5 pages ahead (if available) of the current one
             int firstPageToShow = Model.CurrentPage - 5 < 1 ? 1 : Model.CurrentPage - 5;
             int lastPageToShow = Model.CurrentPage + 5 > Model.LastPage ? Model.LastPage : Model.CurrentPage + 5;
 

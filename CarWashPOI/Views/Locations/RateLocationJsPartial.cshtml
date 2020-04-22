@@ -19,6 +19,12 @@
             .done(function (response) {
                 positiveRatingElement.text(`+ ${response.positives}`);
                 negativeRatingElement.text(`- ${response.negatives}`);
+            })
+            .fail(function (xhr) {
+                if (xhr.status === 401) {
+                    $("#rateMessage").text("Само логнати потребители могат да оценят.");
+                    setTimeout(function () { $("#rateMessage").text("") }, 3000);
+                }
             });
     }
 </script>
