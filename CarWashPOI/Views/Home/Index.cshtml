@@ -54,11 +54,14 @@
         <div class="card col-md-3 p-0 m-3">
             <h4 class="card-header">@location.Title</h4>
             <div class="card-body">
-                <h5 class="card-title">@location.Address.Town, @location.Address.Neighbourhood</h5>
-                <h5 class="card-subtitle text-muted mb-2">+ @location.Rating.Positives / - @location.Rating.Negatives</h5>
-                <h6 class="card-subtitle text-muted">@location.AddedOn</h6>
+                <h5 class="card-title">@location.TownAndNeighbourhood</h5>
+                <h5 class="card-subtitle text-muted mb-2"><span class="text-success">+@location.Rating.Positives</span> / <span class="text-danger">-@location.Rating.Negatives</span></h5>
+                <h6 class="card-subtitle text-muted">@location.AddedOn.ToShortDateString()</h6>
             </div>
-            <img style="width:100%; height: 19rem; object-fit: cover; object-position: center;" src="@location.ImageUrl" alt="Card image">
+            @{
+                var imageUrl = location.ImageUrl == null ? "/img/locationDefault.jpg" : location.ImageUrl;
+            }
+            <img style="width:100%; height: 19rem; object-fit: cover; object-position: center;" src="@imageUrl" alt="Card image">
             <div class="card-body">
             </div>
             <div class="card-footer text-muted">

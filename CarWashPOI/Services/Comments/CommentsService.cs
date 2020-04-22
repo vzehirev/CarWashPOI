@@ -3,7 +3,7 @@ using CarWashPOI.Data.Models;
 using System;
 using System.Threading.Tasks;
 
-namespace CarWashPOI.Services
+namespace CarWashPOI.Services.Comments
 {
     public class CommentsService : ICommentsService
     {

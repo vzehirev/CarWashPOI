@@ -6,7 +6,7 @@ using CarWashPOI.ViewModels.Ratings;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CarWashPOI.Services
+namespace CarWashPOI.Services.Locations
 {
     public interface ILocationsService
     {

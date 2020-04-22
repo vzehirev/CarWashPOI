@@ -1,7 +1,7 @@
 ﻿using CloudinaryDotNet;
 using Microsoft.Extensions.Configuration;
 
-namespace CarWashPOI.Services
+namespace CarWashPOI.Services.Images
 {
     public class CloudinaryService : ICloudinaryService
     {

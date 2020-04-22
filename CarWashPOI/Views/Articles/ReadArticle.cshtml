@@ -1,9 +1,15 @@
 ﻿@model CarWashPOI.ViewModels.Articles.ReadArticleOutputModel
 
 <div class="jumbotron p-1 w-75 mx-auto my-4">
+    <input id="articleId" type="hidden" value="@Model.Id" />
     <img style="width: 100%;" class="rounded" src="@Model.ImageUrl" />
     <h4 class="display-4 text-center">@Model.Title</h4>
-    <p class="lead text-center">Добавена на @Model.AddedOn от @Model.User. @Model.Views прочитания.</p>
+    <p class="lead text-center">Добавена на @Model.AddedOn.ToShortDateString() от @Model.User. <span id="articleViews">@Model.Views</span> прочитания.</p>
     <hr class="my-4">
     <div class="px-4">@Html.Raw(Model.Content)</div>
 </div>
+
+
+@section Scripts{
+    <partial name="IncreaseArticleViewsJsPartial" />
+}

@@ -1,4 +1,7 @@
 ﻿using CarWashPOI.Services;
+using CarWashPOI.Services.Locations;
+using CarWashPOI.Services.LocationTypes;
+using CarWashPOI.Services.Towns;
 using CarWashPOI.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;

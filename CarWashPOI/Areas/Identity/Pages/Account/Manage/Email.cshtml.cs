@@ -38,7 +38,7 @@ namespace CarWashPOI.Areas.Identity.Pages.Account.Manage
 
             [Required]
             [EmailAddress]
-            [Display(Name = "New e-mail")]
+            [Display(Name = "Нов e-mail")]
             public string NewEmail { get; set; }
         }
 
@@ -75,7 +75,7 @@ namespace CarWashPOI.Areas.Identity.Pages.Account.Manage
             ApplicationUser userWithSuchEmail = await _userManager.FindByEmailAsync(Input.NewEmail);
             if (userWithSuchEmail != null)
             {
-                ModelState.AddModelError("NewEmail", "Please try with different e-mail.");
+                ModelState.AddModelError("NewEmail", "Моля, опитайте с друг e-mail.");
             }
 
             if (!ModelState.IsValid)
@@ -96,7 +96,7 @@ namespace CarWashPOI.Areas.Identity.Pages.Account.Manage
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
+            StatusMessage = "Вашият профил беше обновен";
             return RedirectToPage();
         }
     }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CarWashPOI.Services
+namespace CarWashPOI.Services.LocationTypes
 {
     public interface ILocationTypesService
     {

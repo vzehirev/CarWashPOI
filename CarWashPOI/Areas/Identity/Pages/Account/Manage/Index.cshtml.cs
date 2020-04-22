@@ -29,11 +29,12 @@ namespace CarWashPOI.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
+            [Display(Name = "Потребителско име")]
             public string Username { get; set; }
 
             [Required]
-            [StringLength(11, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 3)]
-            [Display(Name = "New username")]
+            [StringLength(11, ErrorMessage = "{0} трябва да е с дължина между {2} и {1} символа.", MinimumLength = 3)]
+            [Display(Name = "Ново потребителско име")]
             public string NewUsername { get; set; }
         }
 
@@ -70,7 +71,7 @@ namespace CarWashPOI.Areas.Identity.Pages.Account.Manage
             ApplicationUser userWithSuchUsername = await _userManager.FindByNameAsync(Input.NewUsername);
             if (userWithSuchUsername != null)
             {
-                ModelState.AddModelError("NewUsername", "Please try with different username.");
+                ModelState.AddModelError("NewUsername", "Моля, опитайте с друго потребителско име.");
             }
 
             if (!ModelState.IsValid)
@@ -91,7 +92,7 @@ namespace CarWashPOI.Areas.Identity.Pages.Account.Manage
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
+            StatusMessage = "Вашият профил беше обновен";
             return RedirectToPage();
         }
     }

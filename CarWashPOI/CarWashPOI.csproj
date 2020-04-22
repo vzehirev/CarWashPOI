@@ -53,12 +53,6 @@
 
 
   <ItemGroup>
-    <Folder Include="Areas\Administration\Data\" />
-    <Folder Include="Areas\Administration\Models\" />
-  </ItemGroup>
-
-
-  <ItemGroup>
     <Content Update="Areas\Administration\Views\_ViewStart.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

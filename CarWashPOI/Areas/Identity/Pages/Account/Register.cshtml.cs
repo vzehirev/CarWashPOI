@@ -50,8 +50,8 @@ namespace CarWashPOI.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [StringLength(11, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 3)]
-            [Display(Name = "Username")]
+            [StringLength(11, ErrorMessage = "{0} трябва да е с дължина между {2} и {1} символа.", MinimumLength = 3)]
+            [Display(Name = "Потребителско име")]
             public string Username { get; set; }
 
             [Required]
@@ -60,14 +60,14 @@ namespace CarWashPOI.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "{0} трябва да е с дължина между {2} и {1} символа.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Парола")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Потвърди парола")]
+            [Compare("Password", ErrorMessage = "Паролите не съвпадат.")]
             public string ConfirmPassword { get; set; }
         }
 
@@ -100,7 +100,7 @@ namespace CarWashPOI.Areas.Identity.Pages.Account
 
                 if (userWithSameEmail != null)
                 {
-                    ModelState.AddModelError("userWithSameEmail", "Please try with different e-mail.");
+                    ModelState.AddModelError("userWithSameEmail", "Моля, опитайте с друг e-mail.");
 
                     return Page();
                 }

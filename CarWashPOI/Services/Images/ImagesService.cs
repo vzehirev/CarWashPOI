@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace CarWashPOI.Services
+namespace CarWashPOI.Services.Images
 {
     public class ImagesService : IImagesService
     {

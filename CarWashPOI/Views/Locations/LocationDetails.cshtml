@@ -55,7 +55,7 @@
     <div class="card border-success m-3 col-md-4 p-0" style="max-width: 20rem;">
         <div class="card-header p-1">ДОБАВЕНА</div>
         <div class="card-body p-1">
-            <h4 class="card-title">@Model.AddedOn</h4>
+            <h4 class="card-title">@Model.AddedOn.ToShortDateString()</h4>
         </div>
     </div>
 </div>
@@ -91,7 +91,7 @@
         <div class="col-md-4 toast show m-3">
             <div class="toast-header">
                 <strong class="mr-auto">@comment.Author</strong>
-                <small>@comment.LastModified</small>
+                <small>@comment.AddedOn.ToShortDateString()</small>
             </div>
             <div class="toast-body">
                 @comment.Content

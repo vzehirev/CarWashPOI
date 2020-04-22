@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CarWashPOI.Services
+namespace CarWashPOI.Services.Articles
 {
     public interface IArticlesService
     {
@@ -20,5 +20,7 @@ namespace CarWashPOI.Services
         Task<int> ApproveArticleAsync(int id);
 
         Task<int> DeleteArticleAsync(int id);
+
+        Task<int> IncreaseArticleViewsAsync(int id);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using CloudinaryDotNet;
 
-namespace CarWashPOI.Services
+namespace CarWashPOI.Services.Images
 {
     public interface ICloudinaryService
     {

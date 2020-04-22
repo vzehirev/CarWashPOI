@@ -3,6 +3,7 @@ using AutoMapper.QueryableExtensions;
 using CarWashPOI.Areas.Administration.ViewModels.Articles;
 using CarWashPOI.Data;
 using CarWashPOI.Data.Models;
+using CarWashPOI.Services.Images;
 using CarWashPOI.ViewModels.Articles;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CarWashPOI.Services
+namespace CarWashPOI.Services.Articles
 {
     public class ArticlesService : IArticlesService
     {
@@ -24,6 +25,7 @@ namespace CarWashPOI.Services
             this.mapper = mapper;
             this.imagesService = imagesService;
         }
+
         public async Task<int> AddArticleAsync(AddArticleViewModel inputModel)
         {
             var articleToAdd = mapper.Map<Article>(inputModel);
@@ -42,6 +44,7 @@ namespace CarWashPOI.Services
                 }
             }
 
+            articleToAdd.AddedOn = DateTime.UtcNow;
             dbContext.Articles.Add(articleToAdd);
             await dbContext.SaveChangesAsync();
 
@@ -117,6 +120,20 @@ namespace CarWashPOI.Services
                 .Where(a => !a.IsApproved && !a.IsDeleted)
                 .ProjectTo<ArticleForApprovalOutputModel>(mapper.ConfigurationProvider)
                 .ToArrayAsync();
+        }
+
+        public async Task<int> IncreaseArticleViewsAsync(int id)
+        {
+            var article = await dbContext.Articles
+                .Where(a => a.Id == id)
+                .FirstOrDefaultAsync();
+
+            if (article != null)
+            {
+                article.Views += 1;
+            }
+
+            return await dbContext.SaveChangesAsync();
         }
     }
 }

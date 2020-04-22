@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using CarWashPOI.Data.Models;
 using CarWashPOI.Services;
+using CarWashPOI.Services.Articles;
 using CarWashPOI.ViewModels.Articles;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -53,6 +55,7 @@ namespace CarWashPOI.Controllers
             return View(outputModel);
         }
 
+        [Authorize]
         public IActionResult Add()
         {
             return View();
@@ -66,6 +69,7 @@ namespace CarWashPOI.Controllers
             return View(article);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Add(AddArticleViewModel inputModel)
         {

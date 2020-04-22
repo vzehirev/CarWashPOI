@@ -8,6 +8,6 @@ namespace CarWashPOI.ViewModels.Comments
 
         public string Content { get; set; }
 
-        public DateTime LastModified { get; set; }
+        public DateTime AddedOn { get; set; }
     }
 }

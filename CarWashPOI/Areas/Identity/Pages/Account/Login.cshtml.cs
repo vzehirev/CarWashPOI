@@ -41,14 +41,15 @@ namespace CarWashPOI.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [Display(Name = "Username or e-mail")]
+            [Display(Name = "Потребителско име или e-mail")]
             public string UsernameOrEmail { get; set; }
 
             [Required]
             [DataType(DataType.Password)]
+            [Display(Name = "Парола")]
             public string Password { get; set; }
 
-            [Display(Name = "Remember me?")]
+            [Display(Name = "Запомни ме")]
             public bool RememberMe { get; set; }
         }
 
@@ -101,7 +102,7 @@ namespace CarWashPOI.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Грешка при влизане.");
                     return Page();
                 }
             }

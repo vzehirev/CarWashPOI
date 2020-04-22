@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CarWashPOI.Data.Models;
 using CarWashPOI.Services;
+using CarWashPOI.Services.Locations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -26,7 +27,7 @@ namespace CarWashPOI.Controllers.Rest
         }
 
         [HttpPost("{locationId:int}")]
-        public async Task<IActionResult> RatePositive(int locationId, [FromForm] bool isPositive)
+        public async Task<IActionResult> RateLocation(int locationId, [FromForm] bool isPositive)
         {
             string userId = userManager.GetUserId(User);
 

@@ -1,18 +1,22 @@
 ﻿using AutoMapper;
+using AutoMapper.Configuration;
 using AutoMapper.QueryableExtensions;
 using CarWashPOI.Areas.Administration.ViewModels.Locations;
 using CarWashPOI.Data;
 using CarWashPOI.Data.Models;
+using CarWashPOI.Services.Images;
 using CarWashPOI.ViewModels;
 using CarWashPOI.ViewModels.Coordinates;
 using CarWashPOI.ViewModels.Locations;
 using CarWashPOI.ViewModels.Ratings;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Threading.Tasks;
 
-namespace CarWashPOI.Services
+namespace CarWashPOI.Services.Locations
 {
     public class LocationsService : ILocationsService
     {
@@ -44,6 +48,12 @@ namespace CarWashPOI.Services
                 }
             }
 
+            if (locationToAdd.Title == null)
+            {
+                locationToAdd.Title = "Автомивка";
+            }
+            locationToAdd.AddedOn = DateTime.UtcNow;
+
             dbContext.Locations.Add(locationToAdd);
             await dbContext.SaveChangesAsync();
 
@@ -56,7 +66,7 @@ namespace CarWashPOI.Services
                 .Where(l => l.Id == id)
                 .FirstOrDefaultAsync();
 
-            if (location!=null)
+            if (location != null)
             {
                 location.IsApproved = true;
             }
@@ -81,7 +91,7 @@ namespace CarWashPOI.Services
         public async Task<IEnumerable<LocationRestResponseModel>> GetAllLocationsAsync()
         {
             LocationRestResponseModel[] allLocations = await dbContext.Locations
-                .Where(l=>l.IsApproved && !l.IsDeleted)
+                .Where(l => l.IsApproved && !l.IsDeleted)
                 .ProjectTo<LocationRestResponseModel>(mapper.ConfigurationProvider)
                 .ToArrayAsync();
 

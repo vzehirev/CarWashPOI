@@ -1,0 +1,11 @@
+﻿<script>
+    let articleId = $("#articleId").val();
+    let articleViews = Number($("#articleViews").text());
+    $.ajax({
+        method: "POST",
+        url: `/Rest/Articles/${articleId}`
+    })
+        .done((response) => {
+            $("#articleViews").text(`${articleViews + response}`);
+        });
+</script>

@@ -17,5 +17,7 @@ namespace CarWashPOI.ViewModels.Locations
         public RatingOutputModel Rating { get; set; }
 
         public DateTime AddedOn { get; set; }
+
+        public string TownAndNeighbourhood => string.Join(", ", Address.Town, Address.Neighbourhood).Trim(',', ' ');
     }
 }

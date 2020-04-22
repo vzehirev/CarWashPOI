@@ -82,8 +82,8 @@ body {
 }
 
 #filterAndOrderBtn {
-    max-height:2.5rem;
-    margin-top:1.9rem;
+    max-height: 2.5rem;
+    margin-top: 1.9rem;
 }
 
 #orderBtn {
@@ -95,6 +95,6 @@ body {
     display: none;
 }
 
-.custom-file-input{
-    cursor:pointer;
+.custom-file-input {
+    cursor: pointer;
 }

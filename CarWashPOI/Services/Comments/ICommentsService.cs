@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace CarWashPOI.Services
+namespace CarWashPOI.Services.Comments
 {
     public interface ICommentsService
     {

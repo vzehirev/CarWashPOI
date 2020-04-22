@@ -3,7 +3,7 @@ using CarWashPOI.ViewModels.Towns;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CarWashPOI.Services
+namespace CarWashPOI.Services.Towns
 {
     public interface ITownsService
     {

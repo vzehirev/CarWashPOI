@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CarWashPOI.Services
+namespace CarWashPOI.Services.LocationTypes
 {
     public class LocationTypesService : ILocationTypesService
     {

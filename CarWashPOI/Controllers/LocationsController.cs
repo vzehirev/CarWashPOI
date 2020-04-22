@@ -1,6 +1,10 @@
 ﻿using CarWashPOI.Data.Models;
 using CarWashPOI.Services;
+using CarWashPOI.Services.Locations;
+using CarWashPOI.Services.LocationTypes;
+using CarWashPOI.Services.Towns;
 using CarWashPOI.ViewModels.Locations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,10 +29,11 @@ namespace CarWashPOI.Controllers
         public async Task<IActionResult> LocationDetails(int id)
         {
             LocationDetailsOutputModel outputModel = await locationsService.GetLocationDetailsAsync(id);
-            outputModel.Comments = outputModel.Comments.OrderByDescending(c => c.LastModified);
+            outputModel.Comments = outputModel.Comments.OrderByDescending(c => c.AddedOn);
             return View(outputModel);
         }
 
+        [Authorize]
         public async Task<IActionResult> Add()
         {
             AddLocationViewModel addLocationViewModel = new AddLocationViewModel
@@ -40,6 +45,7 @@ namespace CarWashPOI.Controllers
             return View(addLocationViewModel);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Add(AddLocationViewModel addLocationViewModel)
         {

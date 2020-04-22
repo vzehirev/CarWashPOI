@@ -32,10 +32,13 @@
     {
         <div class="card my-5 mx-auto w-75">
             <div class="card-body">
-                <h5 class="card-title">@article.Title</h5>
-                <p class="card-text"><small class="text-muted">@article.AddedOn / @article.Views</small></p>
+                <h4 class="card-title">@article.Title</h4>
+                <p class="card-text"><small class="text-muted">@article.AddedOn.ToShortDateString() / @article.Views прочитания</small></p>
             </div>
-            <img style="width:100%; height: 21rem; object-fit: cover; object-position: center;" class="card-img-top" src="@article.ImageUrl" alt="Card image cap">
+            @{
+                var imageUrl = article.ImageUrl == null ? "/img/articleDefault.jpg" : article.ImageUrl;
+            }
+            <img style="width:100%; height: 21rem; object-fit: cover; object-position: center;" class="card-img-top" src="@imageUrl" alt="Card image cap">
             <a asp-controller="Articles" asp-action="ReadArticle" asp-route-articleId="@article.Id" class="btn btn-outline-warning btn-sm mx-auto my-3">Прочети</a>
         </div>
     }

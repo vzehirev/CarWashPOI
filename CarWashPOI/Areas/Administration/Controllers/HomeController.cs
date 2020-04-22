@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using CarWashPOI.Areas.Administration.ViewModels;
 using CarWashPOI.Services;
+using CarWashPOI.Services.Articles;
+using CarWashPOI.Services.Locations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
