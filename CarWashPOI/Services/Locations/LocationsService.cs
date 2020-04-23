@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using AutoMapper.Configuration;
 using AutoMapper.QueryableExtensions;
 using CarWashPOI.Areas.Administration.ViewModels.Locations;
 using CarWashPOI.Data;
@@ -10,10 +9,10 @@ using CarWashPOI.ViewModels.Coordinates;
 using CarWashPOI.ViewModels.Locations;
 using CarWashPOI.ViewModels.Ratings;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Metadata;
 using System.Threading.Tasks;
 
 namespace CarWashPOI.Services.Locations
@@ -22,20 +21,26 @@ namespace CarWashPOI.Services.Locations
     {
         private readonly ApplicationDbContext dbContext;
         private readonly IMapper mapper;
+        private readonly IConfiguration configuration;
         private readonly IImagesService imagesService;
+        private readonly long maxImageSize;
 
-        public LocationsService(ApplicationDbContext dbContext, IMapper mapper, IImagesService imagesService)
+        public LocationsService(ApplicationDbContext dbContext,
+            IMapper mapper,
+            IConfiguration configuration,
+            IImagesService imagesService)
         {
             this.dbContext = dbContext;
             this.mapper = mapper;
+            this.configuration = configuration;
             this.imagesService = imagesService;
+            maxImageSize = long.Parse(this.configuration["MaxImageSize"]);
         }
 
         public async Task<int> AddAsync(AddLocationViewModel addLocationViewModel)
         {
             Location locationToAdd = mapper.Map<Location>(addLocationViewModel);
 
-            const int maxImageSize = 1024 * 1024 * 10;
             if (addLocationViewModel.Image != null)
             {
                 if (addLocationViewModel.Image.ContentType.ToLower().Contains("image") && addLocationViewModel.Image.Length <= maxImageSize)
@@ -50,7 +55,7 @@ namespace CarWashPOI.Services.Locations
 
             if (locationToAdd.Title == null)
             {
-                locationToAdd.Title = "Автомивка";
+                locationToAdd.Title = configuration["DefaultLocationName"];
             }
             locationToAdd.AddedOn = DateTime.UtcNow;
 
@@ -62,9 +67,7 @@ namespace CarWashPOI.Services.Locations
 
         public async Task<int> ApproveLocationAsync(int id)
         {
-            var location = await dbContext.Locations
-                .Where(l => l.Id == id)
-                .FirstOrDefaultAsync();
+            Location location = await dbContext.Locations.FirstOrDefaultAsync(l => l.Id == id);
 
             if (location != null)
             {
@@ -76,9 +79,7 @@ namespace CarWashPOI.Services.Locations
 
         public async Task<int> DeleteLocationAsync(int id)
         {
-            var location = await dbContext.Locations
-                .Where(l => l.Id == id)
-                .FirstOrDefaultAsync();
+            Location location = await dbContext.Locations.FirstOrDefaultAsync(l => l.Id == id);
 
             if (location != null)
             {
@@ -128,8 +129,6 @@ namespace CarWashPOI.Services.Locations
 
         public async Task<HomePageOutputModel> GetLocationsAsync(int townId, int typeId, string orderBy, int skip, int take)
         {
-            HomePageOutputModel outputModel = new HomePageOutputModel();
-
             IQueryable<Location> query = dbContext.Locations.Where(l => l.IsApproved && !l.IsDeleted).AsQueryable();
 
             if (townId != 0)
@@ -157,13 +156,15 @@ namespace CarWashPOI.Services.Locations
                 query = query.OrderByDescending(l => l.AddedOn);
             }
 
-            outputModel.AllLocations = await query.CountAsync();
-
-            outputModel.Locations = await query
+            HomePageOutputModel outputModel = new HomePageOutputModel
+            {
+                AllLocations = await query.CountAsync(),
+                Locations = await query
                 .Skip(skip)
                 .Take(take)
                 .ProjectTo<LocationOutputModel>(mapper.ConfigurationProvider)
-                .ToArrayAsync();
+                .ToArrayAsync(),
+            };
 
             return outputModel;
         }

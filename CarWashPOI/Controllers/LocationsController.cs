@@ -1,6 +1,4 @@
-﻿using CarWashPOI.Data.Models;
-using CarWashPOI.Services;
-using CarWashPOI.Services.Locations;
+﻿using CarWashPOI.Services.Locations;
 using CarWashPOI.Services.LocationTypes;
 using CarWashPOI.Services.Towns;
 using CarWashPOI.ViewModels.Locations;
@@ -30,6 +28,7 @@ namespace CarWashPOI.Controllers
         {
             LocationDetailsOutputModel outputModel = await locationsService.GetLocationDetailsAsync(id);
             outputModel.Comments = outputModel.Comments.OrderByDescending(c => c.AddedOn);
+
             return View(outputModel);
         }
 
@@ -53,6 +52,7 @@ namespace CarWashPOI.Controllers
             {
                 addLocationViewModel.AllLocationTypes = await locationTypesService.GetAllLocationTypesAsync();
                 addLocationViewModel.AllTowns = await townsService.GetAllTownsAsync();
+
                 return View(addLocationViewModel);
             }
 
@@ -61,6 +61,7 @@ namespace CarWashPOI.Controllers
             {
                 TempData["locationAdded"] = true;
             }
+
             return LocalRedirect("/#locationAdded");
         }
     }

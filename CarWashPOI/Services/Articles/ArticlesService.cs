@@ -6,6 +6,7 @@ using CarWashPOI.Data.Models;
 using CarWashPOI.Services.Images;
 using CarWashPOI.ViewModels.Articles;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,20 +18,25 @@ namespace CarWashPOI.Services.Articles
     {
         private readonly ApplicationDbContext dbContext;
         private readonly IMapper mapper;
+        private readonly IConfiguration configuration;
         private readonly IImagesService imagesService;
+        private readonly long maxImageSize;
 
-        public ArticlesService(ApplicationDbContext dbContext, IMapper mapper, IImagesService imagesService)
+        public ArticlesService(ApplicationDbContext dbContext,
+            IMapper mapper,
+            IConfiguration configuration,
+            IImagesService imagesService)
         {
             this.dbContext = dbContext;
             this.mapper = mapper;
+            this.configuration = configuration;
             this.imagesService = imagesService;
+            maxImageSize = long.Parse(this.configuration["MaxImageSize"]);
         }
 
         public async Task<int> AddArticleAsync(AddArticleViewModel inputModel)
         {
-            var articleToAdd = mapper.Map<Article>(inputModel);
-
-            const int maxImageSize = 1024 * 1024 * 10;
+            Article articleToAdd = mapper.Map<Article>(inputModel);
 
             if (inputModel.Image != null)
             {
@@ -53,9 +59,7 @@ namespace CarWashPOI.Services.Articles
 
         public async Task<int> ApproveArticleAsync(int id)
         {
-            var article = await dbContext.Articles
-                .Where(a => a.Id == id)
-                .FirstOrDefaultAsync();
+            Article article = await dbContext.Articles.FirstOrDefaultAsync(a => a.Id == id);
 
             if (article != null)
             {
@@ -67,9 +71,7 @@ namespace CarWashPOI.Services.Articles
 
         public async Task<int> DeleteArticleAsync(int id)
         {
-            var article = await dbContext.Articles
-                .Where(a => a.Id == id)
-                .FirstOrDefaultAsync();
+            Article article = await dbContext.Articles.FirstOrDefaultAsync(a => a.Id == id);
 
             if (article != null)
             {
@@ -89,7 +91,7 @@ namespace CarWashPOI.Services.Articles
 
         public async Task<ArticlesIndexOutputModel> GetArticlesAsync(int skip, int take, string orderBy)
         {
-            var query = dbContext.Articles.Where(a => a.IsApproved && !a.IsDeleted).AsQueryable();
+            IQueryable<Article> query = dbContext.Articles.Where(a => a.IsApproved && !a.IsDeleted).AsQueryable();
 
             if (orderBy == "views")
             {
@@ -100,7 +102,7 @@ namespace CarWashPOI.Services.Articles
                 query = query.OrderByDescending(a => a.AddedOn);
             }
 
-            var outputModel = new ArticlesIndexOutputModel
+            ArticlesIndexOutputModel outputModel = new ArticlesIndexOutputModel
             {
                 AllArticles = await query.CountAsync(),
                 Articles = await query
@@ -124,13 +126,11 @@ namespace CarWashPOI.Services.Articles
 
         public async Task<int> IncreaseArticleViewsAsync(int id)
         {
-            var article = await dbContext.Articles
-                .Where(a => a.Id == id)
-                .FirstOrDefaultAsync();
+            Article article = await dbContext.Articles.FirstOrDefaultAsync(a => a.Id == id);
 
             if (article != null)
             {
-                article.Views += 1;
+                article.Views++;
             }
 
             return await dbContext.SaveChangesAsync();

@@ -2,9 +2,9 @@ using AutoMapper;
 using CarWashPOI.Data;
 using CarWashPOI.Data.ApplicationSeeding;
 using CarWashPOI.Data.Models;
-using CarWashPOI.Services;
 using CarWashPOI.Services.Articles;
 using CarWashPOI.Services.Comments;
+using CarWashPOI.Services.Emails;
 using CarWashPOI.Services.Images;
 using CarWashPOI.Services.Locations;
 using CarWashPOI.Services.LocationTypes;
@@ -32,11 +32,12 @@ namespace CarWashPOI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDefaultIdentity<ApplicationUser>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
 
@@ -46,6 +47,7 @@ namespace CarWashPOI
                 mc.AddProfile(new AutoMapperMappings());
             });
             IMapper mapper = mapperConfig.CreateMapper();
+
             services.AddSingleton(mapper);
 
             // Application seeders
@@ -53,17 +55,21 @@ namespace CarWashPOI
             services.AddTransient<TownsCoordinatesSeeding>();
 
             // Application services
-            services.AddTransient<ICloudinaryService, CloudinaryService>();
-            services.AddTransient<IImagesService, ImagesService>();
             services.AddTransient<ILocationsService, LocationsService>();
-            services.AddTransient<ITownsService, TownsService>();
             services.AddTransient<ILocationTypesService, LocationTypesService>();
+            services.AddTransient<ITownsService, TownsService>();
             services.AddTransient<ICommentsService, CommentsService>();
             services.AddTransient<IArticlesService, ArticlesService>();
+            services.AddTransient<IImagesService, CloudinaryImagesService>();
+            services.AddTransient<IEmailsService, SendGridEmailsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext dbContext, AdminRoleAndUserSeeder adminRoleAndUserSeeder, TownsCoordinatesSeeding townsCoordinatesSeeding)
+        public void Configure(IApplicationBuilder app,
+            IWebHostEnvironment env,
+            ApplicationDbContext dbContext,
+            AdminRoleAndUserSeeder adminRoleAndUserSeeder,
+            TownsCoordinatesSeeding townsCoordinatesSeeding)
         {
             if (env.IsDevelopment())
             {
@@ -78,12 +84,9 @@ namespace CarWashPOI
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

@@ -1,8 +1,6 @@
 ﻿using CarWashPOI.Data.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace CarWashPOI.Data.ApplicationSeeding
 {
@@ -280,9 +278,9 @@ namespace CarWashPOI.Data.ApplicationSeeding
         {
             if (dbContext.Towns.Any(t => t.CoordinatesId == null))
             {
-                var towns = dbContext.Towns.Where(t => t.CoordinatesId == null).ToArray();
+                Town[] towns = dbContext.Towns.Where(t => t.CoordinatesId == null).ToArray();
 
-                foreach (var town in towns)
+                foreach (Town town in towns)
                 {
                     if (townsCoordinates.ContainsKey(town.Name))
                     {

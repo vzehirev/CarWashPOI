@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using CarWashPOI.ViewModels.SiteInfo;
+﻿using CarWashPOI.ViewModels.SiteInfo;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace CarWashPOI.Controllers
 {
@@ -20,21 +17,23 @@ namespace CarWashPOI.Controllers
 
         public async Task<IActionResult> PrivacyPolicy()
         {
-            var filePath = env.ContentRootPath + Path.DirectorySeparatorChar + "privacyPolicy.txt";
-            var outputModel = new PrivacyOutputModel
+            string filePath = env.ContentRootPath + Path.DirectorySeparatorChar + "privacyPolicy.txt";
+            PrivacyOutputModel outputModel = new PrivacyOutputModel
             {
                 Content = await System.IO.File.ReadAllTextAsync(filePath),
             };
+
             return View(outputModel);
         }
 
         public async Task<IActionResult> TermsAndConditions()
         {
-            var filePath = env.ContentRootPath + Path.DirectorySeparatorChar + "termsAndConditions.txt";
-            var outputModel = new TermsAndConditionsOutputModel
+            string filePath = env.ContentRootPath + Path.DirectorySeparatorChar + "termsAndConditions.txt";
+            TermsAndConditionsOutputModel outputModel = new TermsAndConditionsOutputModel
             {
                 Content = await System.IO.File.ReadAllTextAsync(filePath),
             };
+
             return View(outputModel);
         }
     }

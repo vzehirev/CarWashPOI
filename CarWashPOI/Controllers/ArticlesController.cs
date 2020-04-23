@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CarWashPOI.Data.Models;
-using CarWashPOI.Services;
+﻿using CarWashPOI.Data.Models;
 using CarWashPOI.Services.Articles;
 using CarWashPOI.ViewModels.Articles;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace CarWashPOI.Controllers
 {
@@ -25,23 +22,23 @@ namespace CarWashPOI.Controllers
 
         public async Task<IActionResult> Index(int page, string orderBy)
         {
-            const int resultsPerPage = 10;
+            const int ResultsPerPage = 10;
 
             if (page < 1)
             {
                 page = 1;
             }
 
-            int skip = (page - 1) * resultsPerPage;
+            int skip = (page - 1) * ResultsPerPage;
 
-            var outputModel = await articlesService.GetArticlesAsync(skip, resultsPerPage, orderBy);
+            ArticlesIndexOutputModel outputModel = await articlesService.GetArticlesAsync(skip, ResultsPerPage, orderBy);
 
             if (outputModel.AllArticles == 0)
             {
                 return View(outputModel);
             }
 
-            int lastPage = (int)Math.Ceiling(((double)outputModel.AllArticles / resultsPerPage));
+            int lastPage = (int)Math.Ceiling(((double)outputModel.AllArticles / ResultsPerPage));
 
             if (page > lastPage)
             {
@@ -52,6 +49,7 @@ namespace CarWashPOI.Controllers
 
             outputModel.CurrentPage = page;
             outputModel.LastPage = lastPage;
+
             return View(outputModel);
         }
 
@@ -64,7 +62,7 @@ namespace CarWashPOI.Controllers
         [Route("/Articles/{articleId:int}")]
         public async Task<IActionResult> ReadArticle(int articleId)
         {
-            var article = await articlesService.GetArticleByIdAsync(articleId);
+            ReadArticleOutputModel article = await articlesService.GetArticleByIdAsync(articleId);
 
             return View(article);
         }
@@ -80,7 +78,7 @@ namespace CarWashPOI.Controllers
                 return View(inputModel);
             }
 
-            var articleId = await articlesService.AddArticleAsync(inputModel);
+            int articleId = await articlesService.AddArticleAsync(inputModel);
 
             if (articleId > 0)
             {

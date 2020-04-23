@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CarWashPOI.Services;
-using CarWashPOI.Services.Articles;
+﻿using CarWashPOI.Services.Articles;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace CarWashPOI.Areas.Administration.Controllers
 {
@@ -22,14 +18,14 @@ namespace CarWashPOI.Areas.Administration.Controllers
 
         public async Task<IActionResult> ForApproval(int id)
         {
-            var outputModel = await articlesService.GetArticleByIdAsync(id);
+            CarWashPOI.ViewModels.Articles.ReadArticleOutputModel outputModel = await articlesService.GetArticleByIdAsync(id);
 
             return View(outputModel);
         }
 
         public async Task<IActionResult> Approve(int id)
         {
-            var result = await articlesService.ApproveArticleAsync(id);
+            int result = await articlesService.ApproveArticleAsync(id);
 
             if (result > 0)
             {

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CarWashPOI.Areas.Administration.ViewModels;
-using CarWashPOI.Services;
+﻿using CarWashPOI.Areas.Administration.ViewModels;
 using CarWashPOI.Services.Articles;
 using CarWashPOI.Services.Locations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace CarWashPOI.Areas.Administration.Controllers
 {
@@ -25,7 +21,7 @@ namespace CarWashPOI.Areas.Administration.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var outputModel = new AdministrationIndexOutputModel
+            AdministrationIndexOutputModel outputModel = new AdministrationIndexOutputModel
             {
                 LocationsForApproval = await locationsService.GetNonApprovedLocationsAsync(),
                 ArticlesForApproval = await articlesService.GetNonApprovedArticlesAsync(),

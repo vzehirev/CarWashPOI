@@ -1,5 +1,4 @@
-﻿using CarWashPOI.Services;
-using CarWashPOI.Services.Locations;
+﻿using CarWashPOI.Services.Locations;
 using CarWashPOI.Services.LocationTypes;
 using CarWashPOI.Services.Towns;
 using CarWashPOI.ViewModels;
@@ -25,21 +24,21 @@ namespace CarWashPOI.Controllers
 
         public async Task<IActionResult> Index(HomePageInputModel inputModel)
         {
-            const int resultsPerPage = 9;
+            const int ResultsPerPage = 9;
 
             if (inputModel.Page < 1)
             {
                 inputModel.Page = 1;
             }
 
-            int skip = (inputModel.Page - 1) * resultsPerPage;
+            int skip = (inputModel.Page - 1) * ResultsPerPage;
 
             HomePageOutputModel homePageOutputModel = await locationsService.GetLocationsAsync(
                     inputModel.TownId,
                     inputModel.TypeId,
                     inputModel.OrderBy,
                     skip,
-                    resultsPerPage);
+                    ResultsPerPage);
 
             homePageOutputModel.AllTowns = await townsService.GetAllTownsAsync();
             homePageOutputModel.AllTypes = await locationTypesService.GetAllLocationTypesAsync();
@@ -52,7 +51,7 @@ namespace CarWashPOI.Controllers
                 return View(homePageOutputModel);
             }
 
-            int lastPage = (int)Math.Ceiling(((double)homePageOutputModel.AllLocations / resultsPerPage));
+            int lastPage = (int)Math.Ceiling(((double)homePageOutputModel.AllLocations / ResultsPerPage));
 
             if (inputModel.Page > lastPage)
             {
@@ -63,13 +62,17 @@ namespace CarWashPOI.Controllers
 
             homePageOutputModel.CurrentPage = inputModel.Page;
             homePageOutputModel.LastPage = lastPage;
+
             return View(homePageOutputModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel
+            {
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            });
         }
     }
 }

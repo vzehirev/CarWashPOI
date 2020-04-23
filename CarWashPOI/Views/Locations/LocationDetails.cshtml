@@ -83,6 +83,13 @@
             Коментарът е добавен успешно.
         </div>
     }
+    else if (TempData["CommentSuccess"] as bool? == false)
+    {
+        <div class="alert alert-dismissible alert-danger col-md-4 text-center">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            Коментарът трябва да е с дължина от минимум 3 символа.
+        </div>
+    }
 </div>
 
 <div id="comments" class="row mw-100 justify-content-center">

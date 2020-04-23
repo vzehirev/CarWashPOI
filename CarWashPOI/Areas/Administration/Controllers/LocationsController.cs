@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CarWashPOI.Services;
-using CarWashPOI.Services.Locations;
+﻿using CarWashPOI.Services.Locations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace CarWashPOI.Areas.Administration.Controllers
 {
@@ -22,7 +18,7 @@ namespace CarWashPOI.Areas.Administration.Controllers
 
         public async Task<IActionResult> ForApproval(int id)
         {
-            var outputModel = await locationsService.GetLocationDetailsAsync(id);
+            CarWashPOI.ViewModels.Locations.LocationDetailsOutputModel outputModel = await locationsService.GetLocationDetailsAsync(id);
 
             return View(outputModel);
         }

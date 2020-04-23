@@ -1,7 +1,5 @@
 ﻿using CarWashPOI.Data.Models;
-using CarWashPOI.Services;
 using CarWashPOI.Services.Locations;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;

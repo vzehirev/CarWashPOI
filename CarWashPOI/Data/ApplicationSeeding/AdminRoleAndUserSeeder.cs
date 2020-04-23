@@ -22,7 +22,8 @@ namespace CarWashPOI.Data.ApplicationSeeding
 
         public void CreateAdminRole()
         {
-            IdentityRole adminRole = roleManager.FindByNameAsync(configuration["AdminUser:AdminRoleName"]).GetAwaiter().GetResult();
+            IdentityRole adminRole = roleManager
+                .FindByNameAsync(configuration["AdminUser:AdminRoleName"]).GetAwaiter().GetResult();
 
             if (adminRole == null)
             {
@@ -33,7 +34,8 @@ namespace CarWashPOI.Data.ApplicationSeeding
 
         public void CreateAdminUser()
         {
-            ApplicationUser adminUser = userManager.FindByNameAsync(configuration["AdminUser:Username"]).GetAwaiter().GetResult();
+            ApplicationUser adminUser = userManager
+                .FindByNameAsync(configuration["AdminUser:Username"]).GetAwaiter().GetResult();
 
             if (adminUser == null)
             {
@@ -42,9 +44,11 @@ namespace CarWashPOI.Data.ApplicationSeeding
                     UserName = configuration["AdminUser:Username"],
                     Email = configuration["AdminUser:Email"]
                 };
-                userManager.CreateAsync(adminUser, configuration["AdminUser:Password"]).GetAwaiter().GetResult(); ;
+                userManager
+                    .CreateAsync(adminUser, configuration["AdminUser:Password"]).GetAwaiter().GetResult();
 
-                userManager.AddToRoleAsync(adminUser, configuration["AdminUser:AdminRoleName"]).GetAwaiter().GetResult();
+                userManager
+                    .AddToRoleAsync(adminUser, configuration["AdminUser:AdminRoleName"]).GetAwaiter().GetResult();
             }
         }
     }

@@ -1,9 +1,6 @@
 ﻿using CarWashPOI.Areas.Administration.ViewModels.Articles;
 using CarWashPOI.Areas.Administration.ViewModels.Locations;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CarWashPOI.Areas.Administration.ViewModels
 {
