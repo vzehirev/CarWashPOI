@@ -1,0 +1,43 @@
+﻿@model CarWashPOI.ViewModels.SiteInfo.ContactUsInputModel
+
+@{
+    ViewData["Title"] = "КОНТАКТ";
+}
+
+<h1 class="mx-auto justify-content-center text-center">@ViewData["Title"]</h1>
+
+<div class="col-md-4 mx-auto justify-content-center text-center">
+    @if (TempData["contact"] as bool? == true)
+    {
+        <div class="alert alert-dismissible alert-success text-center mx-auto">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            Благодарим Ви, че се свързахте с нас.
+        </div>
+    }
+    else if (TempData["contact"] as bool? == false)
+    {
+        <div class="alert alert-dismissible alert-danger text-center mx-auto">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            Възникна грешка, моля опитайте отново по-късно.
+        </div>
+    }
+    <hr />
+    <form asp-controller="SiteInfo" asp-action="ContactUs" method="post">
+        <div class="form-group">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Message"></label>
+            <textarea asp-for="Message" class="form-control" rows="11"></textarea>
+            <span asp-validation-for="Message" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Изпрати</button>
+    </form>
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

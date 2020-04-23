@@ -9,5 +9,11 @@ namespace CarWashPOI.Areas.Administration.ViewModels
         public IEnumerable<ArticleForApprovalOutputModel> ArticlesForApproval { get; set; }
 
         public IEnumerable<LocationForApprovalOutputModel> LocationsForApproval { get; set; }
+
+        public int TotalLocations { get; set; }
+
+        public int TotalArticles { get; set; }
+
+        public int TotalUsers { get; set; }
     }
 }

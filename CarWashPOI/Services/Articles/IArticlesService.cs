@@ -20,5 +20,7 @@ namespace CarWashPOI.Services.Articles
         Task<int> DeleteArticleAsync(int id);
 
         Task<int> IncreaseArticleViewsAsync(int id);
+
+        Task<int> GetTotalArticlesAsync();
     }
 }

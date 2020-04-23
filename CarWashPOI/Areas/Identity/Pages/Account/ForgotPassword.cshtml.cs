@@ -1,10 +1,12 @@
 ﻿using CarWashPOI.Data.Models;
+using CarWashPOI.Services.Emails;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -17,11 +19,13 @@ namespace CarWashPOI.Areas.Identity.Pages.Account
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmailSender _emailSender;
+        private readonly IEmailsService emailsService;
 
-        public ForgotPasswordModel(UserManager<ApplicationUser> userManager, IEmailSender emailSender)
+        public ForgotPasswordModel(UserManager<ApplicationUser> userManager, IEmailSender emailSender, IEmailsService emailsService)
         {
             _userManager = userManager;
             _emailSender = emailSender;
+            this.emailsService = emailsService;
         }
 
         [BindProperty]
@@ -40,30 +44,30 @@ namespace CarWashPOI.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 ApplicationUser user = await _userManager.FindByEmailAsync(Input.Email);
-                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+
+                if (user == null)
                 {
-                    // Don't reveal that the user does not exist or is not confirmed
-                    return RedirectToPage("./ForgotPasswordConfirmation");
+                    return Page();
                 }
 
-                // For more information on how to enable account confirmation and password reset please 
-                // visit https://go.microsoft.com/fwlink/?LinkID=532713
-                string code = await _userManager.GeneratePasswordResetTokenAsync(user);
-                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                string callbackUrl = Url.Page(
-                    "/Account/ResetPassword",
-                    pageHandler: null,
-                    values: new { area = "Identity", code },
-                    protocol: Request.Scheme);
+                var newPass = Guid.NewGuid().ToString();
 
-                await _emailSender.SendEmailAsync(
-                    Input.Email,
-                    "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                var result = await emailsService
+                    .SendAsync(user.Email, "New password", $"Your new password is: {newPass}");
 
-                return RedirectToPage("./ForgotPasswordConfirmation");
+                if (result.StatusCode.ToString() == "Accepted")
+                {
+                    var removePassResult = await _userManager.RemovePasswordAsync(user);
+                    var addPassResult = await _userManager.AddPasswordAsync(user, newPass);
+
+                    if (removePassResult.Succeeded && addPassResult.Succeeded)
+                    {
+                        TempData["passwordReset"] = true;
+
+                        return RedirectToPage("./Login");
+                    }
+                }
             }
-
             return Page();
         }
     }

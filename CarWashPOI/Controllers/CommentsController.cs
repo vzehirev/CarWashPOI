@@ -1,5 +1,6 @@
 ﻿using CarWashPOI.Data.Models;
 using CarWashPOI.Services.Comments;
+using CarWashPOI.ViewModels.Comments;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -20,27 +21,25 @@ namespace CarWashPOI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CommentLocation(int locationId, string comment)
+        public async Task<IActionResult> CommentLocation(CommentInputModel inputModel)
         {
-            const int CommentMinLen = 3;
-
-            string userId = userManager.GetUserId(User);
-
-            if (comment.Length > CommentMinLen)
+            if (!ModelState.IsValid)
             {
-                int result = await commentsService.AddLocationCommentAsync(userId, locationId, comment);
+                TempData["commentSuccess"] = false;
 
-                if (result > 0)
-                {
-                    TempData["CommentSuccess"] = true;
-                }
-            }
-            else
-            {
-                TempData["CommentSuccess"] = false;
+                return LocalRedirect($"/Locations/{inputModel.LocationId}#commentSuccess");
             }
 
-            return LocalRedirect($"/Locations/{locationId}#commentSuccess");
+            inputModel.UserId = userManager.GetUserId(User);
+
+            int result = await commentsService.AddLocationCommentAsync(inputModel);
+
+            if (result > 0)
+            {
+                TempData["commentSuccess"] = true;
+            }
+
+            return LocalRedirect($"/Locations/{inputModel.LocationId}#commentSuccess");
         }
     }
 }

@@ -82,12 +82,12 @@ body {
 }
 
 #filterAndOrderBtn {
-    max-height: 2.5rem;
+    max-height: 2.9rem;
     margin-top: 1.9rem;
 }
 
 #orderBtn {
-    max-height: 2.5rem;
+    max-height: 2.9rem;
     margin-top: 1.9rem;
 }
 
@@ -98,3 +98,16 @@ body {
 .custom-file-input {
     cursor: pointer;
 }
+
+#siteLogo {
+    max-height: 2.1rem;
+}
+
+.siteNav {
+    font: bold 1.1rem "Roboto", sans-serif;
+    color: #858585 !important;
+}
+
+    .siteNav:hover {
+        color: #3e4fef !important;
+    }

@@ -5,6 +5,6 @@ namespace CarWashPOI.Services.Emails
 {
     public interface IEmailsService
     {
-        Task<Response> Send(string to, string subject, string content);
+        Task<Response> SendAsync(string to, string subject, string content);
     }
 }

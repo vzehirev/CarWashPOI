@@ -31,5 +31,7 @@ namespace CarWashPOI.Services.Locations
         Task<IEnumerable<LocationForApprovalOutputModel>> GetNonApprovedLocationsAsync();
 
         Task<int> DeleteLocationAsync(int id);
+
+        Task<int> GetTotalLocationsAsync();
     }
 }

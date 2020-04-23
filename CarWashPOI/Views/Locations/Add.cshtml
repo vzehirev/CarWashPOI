@@ -1,8 +1,11 @@
 ﻿@model CarWashPOI.ViewModels.Locations.AddLocationViewModel
+
 @{
-    ViewData["Title"] = "Добави локация";
+    ViewData["Title"] = "ДОБАВИ НОВА ЛОКАЦИЯ";
 }
-<h5 class="text-secondary my-2 text-center">Отбележете локацията на картата като кликнете с мишката.</h5>
+
+<h5 class="text-secondary my-2 text-center">Намерете локацията на картата и я отбележете като кликнете с мишката.</h5>
+
 <div id="map" class="mb-4"></div>
 
 <h1 class="mx-auto justify-content-center text-center">@ViewData["Title"]</h1>
@@ -55,9 +58,9 @@
         <label asp-for="@Model.Image"></label>
         <div class="custom-file">
             <input asp-for="@Model.Image" type="file" id="customFile" class="custom-file-input">
-            <label id="customFileLabel" class="custom-file-label" for="customFile">Избери файл</label>
+            <label id="customFileLabel" class="custom-file-label" for="customFile">Избери файл (не е задължително)</label>
         </div>
-        <button type="submit" class="btn btn-success mt-4">Добави локацията</button>
+        <button type="submit" class="btn btn-success mt-4">ДОБАВИ ЛОКАЦИЯТА</button>
     </form>
 </div>
 

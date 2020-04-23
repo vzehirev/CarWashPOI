@@ -1,6 +1,7 @@
 ﻿@model CarWashPOI.Areas.Administration.ViewModels.AdministrationIndexOutputModel
+
 @{
-    ViewData["Title"] = "Администрация";
+    ViewData["Title"] = "АДМИНИСТРАЦИЯ";
 }
 
 <h1 class="text-center mx-auto my-3">@ViewData["Title"]</h1>
@@ -35,12 +36,13 @@
         </div>
     }
 </div>
+
 <div class="row justify-content-center mx-auto">
     <div class="col-md-4">
         <table class="table table-hover">
             <thead>
                 <tr class="table-active">
-                    <th scope="col">Локации за одобрение</th>
+                    <th scope="col">ЛОКАЦИИ ЗА ОДОБРЕНИЕ</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -57,17 +59,18 @@
                 {
                     <tr class="table-default">
                         <th scope="row">@location.Title</th>
-                        <td><a asp-area="Administration" asp-controller="Locations" asp-action="ForApproval" asp-route-id="@location.Id" class="btn btn-primary">Отвори</a></td>
+                        <td><a asp-area="Administration" asp-controller="Locations" asp-action="ForApproval" asp-route-id="@location.Id" class="btn btn-primary">ОТВОРИ</a></td>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
+
     <div class="col-md-4">
         <table class="table table-hover">
             <thead>
                 <tr class="table-active">
-                    <th scope="col">Статии за одобрение</th>
+                    <th scope="col">СТАТИИ ЗА ОДОБРЕНИЕ</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -79,7 +82,6 @@
                         <td></td>
                     </tr>
                 }
-
                 @foreach (var article in Model.ArticlesForApproval)
                 {
                     <tr class="table-default">
@@ -90,4 +92,23 @@
             </tbody>
         </table>
     </div>
+</div>
+
+<div class="col-md-4 mx-auto">
+    <table class="table table-hover">
+        <tbody>
+            <tr class="table-default">
+                <th scope="row">ЛОКАЦИИ</th>
+                <td>@Model.TotalLocations</td>
+            </tr>
+            <tr class="table-default">
+                <th scope="row">СТАТИИ</th>
+                <td>@Model.TotalArticles</td>
+            </tr>
+            <tr class="table-default">
+                <th scope="row">РЕГИСТРИРАНИ ПОТРЕБИТЕЛИ</th>
+                <td>@Model.TotalUsers</td>
+            </tr>
+        </tbody>
+    </table>
 </div>

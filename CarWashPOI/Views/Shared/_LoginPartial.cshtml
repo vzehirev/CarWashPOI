@@ -3,31 +3,29 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-    <ul class="navbar-nav">
-        @if (SignInManager.IsSignedIn(User))
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a class="nav-link siteNav" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">ЗДРАВЕЙ @User.Identity.Name!</a>
+        </li>
+        if (User.IsInRole("admin"))
         {
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Здравей @User.Identity.Name!</a>
-            </li>
-            if (User.IsInRole("admin"))
-            {
-                <li class="nav-item">
-                    <a class="nav-link text-dark" asp-area="Administration" asp-controller="Home" asp-action="Index">Администрация</a>
-                </li>
-            }
-            <li class="nav-item">
-                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                    <button type="submit" class="nav-link btn btn-link text-dark">Излез</button>
-                </form>
+                <a class="nav-link siteNav" asp-area="Administration" asp-controller="Home" asp-action="Index">АДМИНИСТРАЦИЯ</a>
             </li>
         }
-        else
-        {
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Регистрация</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Влез</a>
-            </li>
-        }
-    </ul>
+        <li class="nav-item">
+            <a class="nav-link siteNav" asp-area="Identity" asp-page="/Account/Logout">ИЗЛЕЗ</a>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link siteNav" asp-area="Identity" asp-page="/Account/Login">ЛОГНИ СЕ</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link siteNav" asp-area="Identity" asp-page="/Account/Register">РЕГИСТРАЦИЯ</a>
+        </li>
+    }
+</ul>

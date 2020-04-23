@@ -1,14 +1,14 @@
 ﻿@model CarWashPOI.ViewModels.Articles.ArticlesIndexOutputModel
 
 @{
-    ViewData["Title"] = "Блог";
+    ViewData["Title"] = "БЛОГ";
 }
 
 <div class="justify-content-center text-center">
     <h1 class="my-3">
         @ViewData["Title"]
     </h1>
-    <a asp-controller="Articles" asp-action="Add" class="btn btn-outline-warning btn-sm mb-5">Публикувай нова статия</a>
+    <a asp-controller="Articles" asp-action="Add" class="btn btn-outline-warning btn-sm mb-5">ПУБЛИКУВАЙ НОВА СТАТИЯ</a>
 
     @if (TempData["articleAdded"] as bool? == true)
     {
@@ -25,7 +25,7 @@
                 <option value="views">Най-много четени</option>
             </select>
         </div>
-        <button id="orderBtn" type="submit" class="btn btn-warning btn-sm">OK</button>
+        <button id="orderBtn" type="submit" class="btn btn-warning btn-sm px-3">OK</button>
     </form>
 
     @foreach (var article in Model.Articles)
@@ -39,7 +39,7 @@
                 var imageUrl = article.ImageUrl == null ? "/img/articleDefault.jpg" : article.ImageUrl;
             }
             <img style="width:100%; height: 21rem; object-fit: cover; object-position: center;" class="card-img-top" src="@imageUrl" alt="Card image cap">
-            <a asp-controller="Articles" asp-action="ReadArticle" asp-route-articleId="@article.Id" class="btn btn-warning btn-sm mx-auto my-3">Прочети</a>
+            <a asp-controller="Articles" asp-action="ReadArticle" asp-route-articleId="@article.Id" class="btn btn-outline-warning mx-auto my-3">КЪМ СТАТИЯТА</a>
         </div>
     }
 

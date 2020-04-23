@@ -124,6 +124,12 @@ namespace CarWashPOI.Services.Articles
                 .ToArrayAsync();
         }
 
+        public async Task<int> GetTotalArticlesAsync()
+        {
+            return await dbContext.Articles
+                .CountAsync(a => a.IsApproved && !a.IsDeleted);
+        }
+
         public async Task<int> IncreaseArticleViewsAsync(int id)
         {
             Article article = await dbContext.Articles.FirstOrDefaultAsync(a => a.Id == id);

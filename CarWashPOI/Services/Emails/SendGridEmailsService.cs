@@ -14,10 +14,10 @@ namespace CarWashPOI.Services.Emails
             this.configuration = configuration;
         }
 
-        public async Task<Response> Send(string to, string subject, string content)
+        public async Task<Response> SendAsync(string to, string subject, string content)
         {
             SendGridClient client = new SendGridClient(configuration["SendGrid:ApiKey"]);
-            EmailAddress from = new EmailAddress(configuration["SendGrid:From"]);
+            EmailAddress from = new EmailAddress(configuration["SendGrid:From"], configuration["SendGrid:Name"]);
             EmailAddress recipient = new EmailAddress(to);
             SendGridMessage message = MailHelper.CreateSingleEmail(from, recipient, subject, content, content);
             Response response = await client.SendEmailAsync(message);

@@ -15,7 +15,7 @@
 }
 
 <div class="row mx-auto justify-content-center text-center mb-4">
-    <a asp-controller="Locations" asp-action="Add" class="btn btn-outline-success">Добави нова локация</a>
+    <a asp-controller="Locations" asp-action="Add" class="btn btn-outline-success">ДОБАВИ НОВА ЛОКАЦИЯ</a>
 </div>
 
 <form class="row mw-100 justify-content-center text-center col-md-8">
@@ -46,7 +46,7 @@
             <option value="rating">Най-висока оценка</option>
         </select>
     </div>
-    <button id="filterAndOrderBtn" type="submit" class="btn btn-success btn-sm">OK</button>
+    <button id="filterAndOrderBtn" type="submit" class="btn btn-success btn-sm px-3">OK</button>
 </form>
 <div class="row mw-100 justify-content-center m-0 text-center">
     @foreach (var location in Model.Locations)
@@ -65,7 +65,7 @@
             <div class="card-body">
             </div>
             <div class="card-footer text-muted">
-                <a asp-controller="Locations" asp-action="LocationDetails" asp-route-id="@location.Id" class="card-link btn btn-outline-success">Детайли</a>
+                <a asp-controller="Locations" asp-action="LocationDetails" asp-route-id="@location.Id" class="card-link btn btn-outline-success">ОЩЕ ИНФОРМАЦИЯ</a>
             </div>
         </div>
     }

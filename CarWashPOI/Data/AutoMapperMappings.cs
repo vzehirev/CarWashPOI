@@ -77,6 +77,8 @@ namespace CarWashPOI.Data
             CreateMap<Location, LocationForApprovalOutputModel>();
 
             CreateMap<Article, ArticleForApprovalOutputModel>();
+
+            CreateMap<CommentInputModel, Comment>();
         }
     }
 }

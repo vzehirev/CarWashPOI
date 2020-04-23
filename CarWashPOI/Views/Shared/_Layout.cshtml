@@ -4,14 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - CarWashPOI</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom py-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CarWashPOI</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img id="siteLogo" class="mr-3" src="~/img/siteLogo.png" />CarWashPOI</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -20,10 +20,13 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Начало</a>
+                            <a class="nav-link siteNav" asp-area="" asp-controller="Home" asp-action="Index">НАЧАЛО</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Articles" asp-action="Index">Блог</a>
+                            <a class="nav-link siteNav" asp-area="" asp-controller="Articles" asp-action="Index">БЛОГ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link siteNav" asp-area="" asp-controller="SiteInfo" asp-action="ContactUs">КОНТАКТ</a>
                         </li>
                     </ul>
                 </div>
@@ -38,7 +41,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - CarWashPOI - <a asp-area="" asp-controller="SiteInfo" asp-action="PrivacyPolicy">Политика за поверителност</a> - <a asp-area="" asp-controller="SiteInfo" asp-action="TermsAndConditions">Правила за ползване</a>
+            &copy; 2020 - CarWashPOI™ - <a asp-area="" asp-controller="SiteInfo" asp-action="PrivacyPolicy">Политика за поверителност</a> - <a asp-area="" asp-controller="SiteInfo" asp-action="TermsAndConditions">Правила за ползване</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

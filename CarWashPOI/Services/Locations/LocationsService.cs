@@ -187,6 +187,12 @@ namespace CarWashPOI.Services.Locations
                 .ToArrayAsync();
         }
 
+        public async Task<int> GetTotalLocationsAsync()
+        {
+            return await dbContext.Locations
+                .CountAsync(l => l.IsApproved && !l.IsDeleted);
+        }
+
         public async Task<int> RateLocationAsync(int locationId, string userId, bool isPositive)
         {
             ApplicationUser user = await dbContext.Users.Include(u => u.Ratings).FirstOrDefaultAsync(u => u.Id == userId);
