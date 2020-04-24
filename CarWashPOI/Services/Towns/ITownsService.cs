@@ -7,7 +7,7 @@ namespace CarWashPOI.Services.Towns
 {
     public interface ITownsService
     {
-        public Task<IEnumerable<TownViewModel>> GetAllTownsAsync();
+        public Task<TownViewModel[]> GetAllTownsAsync();
 
         public Task<CoordinatesOutputModel> GetTownCoordinatesAsync(int townId);
     }

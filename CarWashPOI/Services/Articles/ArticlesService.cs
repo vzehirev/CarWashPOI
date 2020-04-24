@@ -81,7 +81,15 @@ namespace CarWashPOI.Services.Articles
             return await dbContext.SaveChangesAsync();
         }
 
-        public async Task<ReadArticleOutputModel> GetArticleByIdAsync(int articleId)
+        public async Task<ReadArticleOutputModel> GetArticleByIdAsUserAsync(int articleId)
+        {
+            return await dbContext.Articles
+                .Where(a => a.Id == articleId && a.IsApproved && !a.IsDeleted)
+                .ProjectTo<ReadArticleOutputModel>(mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<ReadArticleOutputModel> GetArticleByIdAsAdminAsync(int articleId)
         {
             return await dbContext.Articles
                 .Where(a => a.Id == articleId)

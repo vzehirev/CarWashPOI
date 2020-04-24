@@ -9,7 +9,7 @@ namespace CarWashPOI.Services.Articles
     {
         Task<int> AddArticleAsync(AddArticleViewModel inputModel);
 
-        Task<ReadArticleOutputModel> GetArticleByIdAsync(int articleId);
+        Task<ReadArticleOutputModel> GetArticleByIdAsUserAsync(int articleId);
 
         Task<ArticlesIndexOutputModel> GetArticlesAsync(int skip, int take, string orderBy);
 
@@ -20,7 +20,7 @@ namespace CarWashPOI.Services.Articles
         Task<int> DeleteArticleAsync(int id);
 
         Task<int> IncreaseArticleViewsAsync(int id);
-
+        Task<ReadArticleOutputModel> GetArticleByIdAsAdminAsync(int id);
         Task<int> GetTotalArticlesAsync();
     }
 }

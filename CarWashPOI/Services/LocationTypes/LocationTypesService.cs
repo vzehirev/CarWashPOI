@@ -18,7 +18,7 @@ namespace CarWashPOI.Services.LocationTypes
             this.dbContext = dbContext;
             this.mapper = mapper;
         }
-        public async Task<IEnumerable<LocationTypeViewModel>> GetAllLocationTypesAsync()
+        public async Task<LocationTypeViewModel[]> GetAllLocationTypesAsync()
         {
             LocationTypeViewModel[] allLocationTypes = await dbContext.LocationTypes
                 .ProjectTo<LocationTypeViewModel>(mapper.ConfigurationProvider)

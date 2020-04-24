@@ -21,7 +21,7 @@ namespace CarWashPOI.Services.Towns
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<TownViewModel>> GetAllTownsAsync()
+        public async Task<TownViewModel[]> GetAllTownsAsync()
         {
             TownViewModel[] allTowns = await dbContext.Towns
                 .ProjectTo<TownViewModel>(mapper.ConfigurationProvider)

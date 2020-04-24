@@ -86,7 +86,7 @@
                 {
                     <tr class="table-default">
                         <th scope="row">@article.Title</th>
-                        <td><a asp-area="Administration" asp-controller="Articles" asp-action="ForApproval" asp-route-id="@article.Id" class="btn btn-primary">Отвори</a></td>
+                        <td><a asp-area="Administration" asp-controller="Articles" asp-action="ForApproval" asp-route-id="@article.Id" class="btn btn-primary">ОТВОРИ</a></td>
                     </tr>
                 }
             </tbody>
@@ -98,15 +98,15 @@
     <table class="table table-hover">
         <tbody>
             <tr class="table-default">
-                <th scope="row">ЛОКАЦИИ</th>
+                <th scope="row">ЛОКАЦИИ В САЙТА</th>
                 <td>@Model.TotalLocations</td>
             </tr>
             <tr class="table-default">
-                <th scope="row">СТАТИИ</th>
+                <th scope="row">СТАТИИ В САЙТА</th>
                 <td>@Model.TotalArticles</td>
             </tr>
             <tr class="table-default">
-                <th scope="row">РЕГИСТРИРАНИ ПОТРЕБИТЕЛИ</th>
+                <th scope="row">БРОЙ РЕГИСТРИРАНИ ПОТРЕБИТЕЛИ</th>
                 <td>@Model.TotalUsers</td>
             </tr>
         </tbody>

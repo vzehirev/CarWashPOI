@@ -62,7 +62,7 @@ namespace CarWashPOI.Controllers
         [Route("/Articles/{articleId:int}")]
         public async Task<IActionResult> ReadArticle(int articleId)
         {
-            ReadArticleOutputModel article = await articlesService.GetArticleByIdAsync(articleId);
+            ReadArticleOutputModel article = await articlesService.GetArticleByIdAsUserAsync(articleId);
 
             return View(article);
         }

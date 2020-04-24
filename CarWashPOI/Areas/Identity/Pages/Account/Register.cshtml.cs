@@ -49,24 +49,24 @@ namespace CarWashPOI.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Полето Потребителско име е задължително.")]
             [StringLength(11, ErrorMessage = "{0} трябва да е с дължина между {2} и {1} символа.", MinimumLength = 3)]
             [Display(Name = "Потребителско име")]
             public string Username { get; set; }
 
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "Полето E-mail е задължително.")]
+            [EmailAddress(ErrorMessage = "Невалиден e-mail.")]
             [Display(Name = "E-mail")]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Полето Парола е задължително.")]
             [StringLength(100, ErrorMessage = "{0} трябва да е с дължина между {2} и {1} символа.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Парола")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Потвърди парола")]
+            [Display(Name = "Потвърди парола.")]
             [Compare("Password", ErrorMessage = "Паролите не съвпадат.")]
             public string ConfirmPassword { get; set; }
         }

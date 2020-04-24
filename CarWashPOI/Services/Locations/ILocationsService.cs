@@ -14,7 +14,9 @@ namespace CarWashPOI.Services.Locations
 
         Task<IEnumerable<LocationRestResponseModel>> GetAllLocationsAsync();
 
-        Task<LocationDetailsOutputModel> GetLocationDetailsAsync(int locationId);
+        Task<LocationDetailsOutputModel> GetLocationDetailsAsUserAsync(int locationId);
+
+        Task<LocationDetailsOutputModel> GetLocationDetailsAsAdminAsync(int locationId);
 
         Task<CoordinatesOutputModel> GetLocationCoordinatesAsync(int locationId);
 

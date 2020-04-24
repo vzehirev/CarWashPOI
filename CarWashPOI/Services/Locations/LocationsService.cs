@@ -109,7 +109,17 @@ namespace CarWashPOI.Services.Locations
             return locationCoordinates;
         }
 
-        public async Task<LocationDetailsOutputModel> GetLocationDetailsAsync(int id)
+        public async Task<LocationDetailsOutputModel> GetLocationDetailsAsUserAsync(int id)
+        {
+            LocationDetailsOutputModel location = await dbContext.Locations
+                .Where(l => l.Id == id && l.IsApproved && !l.IsDeleted)
+                .ProjectTo<LocationDetailsOutputModel>(mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync();
+
+            return location;
+        }
+
+        public async Task<LocationDetailsOutputModel> GetLocationDetailsAsAdminAsync(int id)
         {
             LocationDetailsOutputModel location = await dbContext.Locations
                 .Where(l => l.Id == id)

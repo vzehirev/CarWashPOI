@@ -18,7 +18,7 @@ namespace CarWashPOI.Areas.Administration.Controllers
 
         public async Task<IActionResult> ForApproval(int id)
         {
-            CarWashPOI.ViewModels.Locations.LocationDetailsOutputModel outputModel = await locationsService.GetLocationDetailsAsync(id);
+            CarWashPOI.ViewModels.Locations.LocationDetailsOutputModel outputModel = await locationsService.GetLocationDetailsAsAdminAsync(id);
 
             return View(outputModel);
         }

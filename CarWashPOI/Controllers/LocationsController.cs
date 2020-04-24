@@ -26,7 +26,7 @@ namespace CarWashPOI.Controllers
         [Route("/Locations/{id:int}")]
         public async Task<IActionResult> LocationDetails(int id)
         {
-            LocationDetailsOutputModel outputModel = await locationsService.GetLocationDetailsAsync(id);
+            LocationDetailsOutputModel outputModel = await locationsService.GetLocationDetailsAsUserAsync(id);
             outputModel.Comments = outputModel.Comments.OrderByDescending(c => c.AddedOn);
 
             return View(outputModel);

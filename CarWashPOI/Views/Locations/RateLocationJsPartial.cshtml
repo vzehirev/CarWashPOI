@@ -22,7 +22,7 @@
             })
             .fail(function (xhr) {
                 if (xhr.status === 401) {
-                    $("#rateMessage").text("Само логнати потребители могат да оценят.");
+                    $("#rateMessage").text("(само логнати потребители могат да оценят)");
                     setTimeout(function () { $("#rateMessage").text("") }, 3000);
                 }
             });

@@ -6,6 +6,6 @@ namespace CarWashPOI.Services.LocationTypes
 {
     public interface ILocationTypesService
     {
-        public Task<IEnumerable<LocationTypeViewModel>> GetAllLocationTypesAsync();
+        public Task<LocationTypeViewModel[]> GetAllLocationTypesAsync();
     }
 }
