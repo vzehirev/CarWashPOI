@@ -8,7 +8,7 @@
     <input id="articleId" type="hidden" value="@Model.Id" />
     <img style="width: 100%;" class="rounded" src="@Model.ImageUrl" />
     <h4 class="display-4 text-center">@Model.Title</h4>
-    <p class="lead text-center">Добавена на @Model.AddedOn.ToShortDateString() от @Model.User. Брой прочитания: <span id="articleViews">@Model.Views</span>.</p>
+    <p class="lead text-center">Добавена на @Model.AddedOn.ToString("dd-MMM-yyyy") от @Model.User. Брой прочитания: <span id="articleViews">@Model.Views</span>.</p>
     <hr class="my-4">
     <div class="px-4">@Html.Raw(Model.Content)</div>
 </div>

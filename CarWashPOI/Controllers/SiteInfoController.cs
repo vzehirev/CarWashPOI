@@ -3,7 +3,6 @@ using CarWashPOI.ViewModels.SiteInfo;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -57,7 +56,7 @@ namespace CarWashPOI.Controllers
                 return View(inputModel);
             }
 
-            var result = await emailsService
+            SendGrid.Response result = await emailsService
                 .SendAsync(configuration["SendGrid:To"], $"From: {inputModel.Email}", inputModel.Message);
 
             if (result.StatusCode.ToString() == "Accepted")

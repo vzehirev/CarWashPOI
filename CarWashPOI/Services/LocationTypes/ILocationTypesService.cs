@@ -1,5 +1,4 @@
 ﻿using CarWashPOI.ViewModels.LocationTypes;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CarWashPOI.Services.LocationTypes

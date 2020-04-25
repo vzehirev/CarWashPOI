@@ -3,7 +3,6 @@ using AutoMapper.QueryableExtensions;
 using CarWashPOI.Data;
 using CarWashPOI.ViewModels.LocationTypes;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CarWashPOI.Services.LocationTypes

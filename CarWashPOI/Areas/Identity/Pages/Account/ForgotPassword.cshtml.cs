@@ -5,11 +5,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.WebUtilities;
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
-using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
 namespace CarWashPOI.Areas.Identity.Pages.Account
@@ -50,15 +47,15 @@ namespace CarWashPOI.Areas.Identity.Pages.Account
                     return Page();
                 }
 
-                var newPass = Guid.NewGuid().ToString();
+                string newPass = Guid.NewGuid().ToString();
 
-                var result = await emailsService
+                SendGrid.Response result = await emailsService
                     .SendAsync(user.Email, "New password", $"Your new password is: {newPass}");
 
                 if (result.StatusCode.ToString() == "Accepted")
                 {
-                    var removePassResult = await _userManager.RemovePasswordAsync(user);
-                    var addPassResult = await _userManager.AddPasswordAsync(user, newPass);
+                    IdentityResult removePassResult = await _userManager.RemovePasswordAsync(user);
+                    IdentityResult addPassResult = await _userManager.AddPasswordAsync(user, newPass);
 
                     if (removePassResult.Succeeded && addPassResult.Succeeded)
                     {

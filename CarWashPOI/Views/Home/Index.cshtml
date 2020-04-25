@@ -56,7 +56,7 @@
             <div class="card-body">
                 <h5 class="card-title">@location.TownAndNeighbourhood</h5>
                 <h5 class="card-subtitle text-muted mb-2"><span class="text-success">+@location.Rating.Positives</span> / <span class="text-danger">-@location.Rating.Negatives</span></h5>
-                <h6 class="card-subtitle text-muted">@location.AddedOn.ToShortDateString()</h6>
+                <h6 class="card-subtitle text-muted">@location.AddedOn.ToString("dd-MMM-yyyy")</h6>
             </div>
             @{
                 var imageUrl = location.ImageUrl == null ? "/img/locationDefault.jpg" : location.ImageUrl;

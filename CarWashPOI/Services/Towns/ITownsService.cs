@@ -1,6 +1,5 @@
 ﻿using CarWashPOI.ViewModels.Coordinates;
 using CarWashPOI.ViewModels.Towns;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CarWashPOI.Services.Towns

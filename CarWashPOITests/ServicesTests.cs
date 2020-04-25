@@ -8,8 +8,6 @@ using CarWashPOI.ViewModels.Locations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Moq;
-using System;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
@@ -28,19 +26,19 @@ namespace CarWashPOITests
         [Fact]
         public void AddLocationTest()
         {
-            var imagesServiceMock = new Mock<IImagesService>();
+            Mock<IImagesService> imagesServiceMock = new Mock<IImagesService>();
             imagesServiceMock
                 .Setup(ls => ls.UploadImageAsync(new StreamMock()))
                 .Returns(Task.FromResult("url"));
 
-            using (var dbContext = serviceProvider.GetService<ApplicationDbContext>())
+            using (ApplicationDbContext dbContext = serviceProvider.GetService<ApplicationDbContext>())
             {
-                var locationsService = new LocationsService(dbContext,
+                LocationsService locationsService = new LocationsService(dbContext,
                     serviceProvider.GetService<IMapper>(),
                     serviceProvider.GetService<IConfiguration>(),
                     imagesServiceMock.Object);
 
-                var locationViewModel = new AddLocationViewModel
+                AddLocationViewModel locationViewModel = new AddLocationViewModel
                 {
                     Title = "LocationTitle",
                     Description = "LocationDescription",
@@ -49,7 +47,7 @@ namespace CarWashPOITests
 
                 locationsService.AddAsync(locationViewModel).GetAwaiter().GetResult();
 
-                var location = dbContext.Locations.First();
+                Location location = dbContext.Locations.First();
 
                 Assert.Equal(locationViewModel.Title, location.Title);
             }
@@ -58,21 +56,21 @@ namespace CarWashPOITests
         [Fact]
         public void AddLocationWithoutName()
         {
-            var imagesServiceMock = new Mock<IImagesService>();
+            Mock<IImagesService> imagesServiceMock = new Mock<IImagesService>();
             imagesServiceMock
                 .Setup(ls => ls.UploadImageAsync(new StreamMock()))
                 .Returns(Task.FromResult("url"));
 
-            using (var dbContext = serviceProvider.GetService<ApplicationDbContext>())
+            using (ApplicationDbContext dbContext = serviceProvider.GetService<ApplicationDbContext>())
             {
-                var configuration = serviceProvider.GetService<IConfiguration>();
+                IConfiguration configuration = serviceProvider.GetService<IConfiguration>();
 
-                var locationsService = new LocationsService(dbContext,
+                LocationsService locationsService = new LocationsService(dbContext,
                     serviceProvider.GetService<IMapper>(),
                     configuration,
                     imagesServiceMock.Object);
 
-                var locationViewModel = new AddLocationViewModel
+                AddLocationViewModel locationViewModel = new AddLocationViewModel
                 {
                     Description = "LocationDescription",
                     TownId = 1,
@@ -80,8 +78,8 @@ namespace CarWashPOITests
 
                 locationsService.AddAsync(locationViewModel).GetAwaiter().GetResult();
 
-                var locations = dbContext.Locations.CountAsync().GetAwaiter().GetResult();
-                var locationWithoutName = dbContext.Locations.FirstAsync().GetAwaiter().GetResult();
+                int locations = dbContext.Locations.CountAsync().GetAwaiter().GetResult();
+                Location locationWithoutName = dbContext.Locations.FirstAsync().GetAwaiter().GetResult();
 
                 Assert.Equal(configuration["DefaultLocationName"], locationWithoutName.Title);
 
@@ -92,14 +90,14 @@ namespace CarWashPOITests
         [Fact]
         public void ArticlesOrderTest()
         {
-            var imagesServiceMock = new Mock<IImagesService>();
+            Mock<IImagesService> imagesServiceMock = new Mock<IImagesService>();
             imagesServiceMock
                 .Setup(ls => ls.UploadImageAsync(new StreamMock()))
                 .Returns(Task.FromResult("url"));
 
-            using (var dbContext = serviceProvider.GetService<ApplicationDbContext>())
+            using (ApplicationDbContext dbContext = serviceProvider.GetService<ApplicationDbContext>())
             {
-                var zeroViewsArticle = new Article
+                Article zeroViewsArticle = new Article
                 {
                     Title = "zeroViewsArticle",
                     Content = "testContent",
@@ -107,7 +105,7 @@ namespace CarWashPOITests
                     IsApproved = true,
                 };
 
-                var twoViewsArticle = new Article
+                Article twoViewsArticle = new Article
                 {
                     Title = "twoViewsArticle",
                     Content = "testContent",
@@ -119,12 +117,12 @@ namespace CarWashPOITests
                 dbContext.Articles.Add(twoViewsArticle);
                 dbContext.SaveChangesAsync().GetAwaiter().GetResult();
 
-                var articlesService = new ArticlesService(dbContext,
+                ArticlesService articlesService = new ArticlesService(dbContext,
                     serviceProvider.GetService<IMapper>(),
                     serviceProvider.GetService<IConfiguration>(),
                     imagesServiceMock.Object);
 
-                var resultFromService = articlesService.GetArticlesAsync(0, 2, "views").GetAwaiter().GetResult();
+                CarWashPOI.ViewModels.Articles.ArticlesIndexOutputModel resultFromService = articlesService.GetArticlesAsync(0, 2, "views").GetAwaiter().GetResult();
 
                 Assert.Equal(resultFromService.Articles.First().Title, twoViewsArticle.Title);
             }
@@ -133,14 +131,14 @@ namespace CarWashPOITests
         [Fact]
         public void DontShowUnapprovedArticles()
         {
-            var imagesServiceMock = new Mock<IImagesService>();
+            Mock<IImagesService> imagesServiceMock = new Mock<IImagesService>();
             imagesServiceMock
                 .Setup(ls => ls.UploadImageAsync(new StreamMock()))
                 .Returns(Task.FromResult("url"));
 
-            using (var dbContext = serviceProvider.GetService<ApplicationDbContext>())
+            using (ApplicationDbContext dbContext = serviceProvider.GetService<ApplicationDbContext>())
             {
-                var article = new Article
+                Article article = new Article
                 {
                     Title = "zeroViewsArticle",
                     Content = "testContent",
@@ -149,12 +147,12 @@ namespace CarWashPOITests
                 dbContext.Articles.Add(article);
                 dbContext.SaveChangesAsync().GetAwaiter().GetResult();
 
-                var articlesService = new ArticlesService(dbContext,
+                ArticlesService articlesService = new ArticlesService(dbContext,
                     serviceProvider.GetService<IMapper>(),
                     serviceProvider.GetService<IConfiguration>(),
                     imagesServiceMock.Object);
 
-                var resultFromService = articlesService.GetArticlesAsync(0, 2, "views").GetAwaiter().GetResult();
+                CarWashPOI.ViewModels.Articles.ArticlesIndexOutputModel resultFromService = articlesService.GetArticlesAsync(0, 2, "views").GetAwaiter().GetResult();
 
                 Assert.True(resultFromService.Articles.Count() == 0);
             }

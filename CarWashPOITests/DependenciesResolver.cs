@@ -1,13 +1,10 @@
 ﻿using AutoMapper;
 using CarWashPOI.Data;
-using CarWashPOI.Services.Images;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace CarWashPOITests
 {
@@ -17,10 +14,10 @@ namespace CarWashPOITests
 
         public DependenciesResolver()
         {
-            var serviceCollection = new ServiceCollection();
+            ServiceCollection serviceCollection = new ServiceCollection();
 
             // Add configuration
-            var configurtaionBuilder = new ConfigurationBuilder()
+            IConfigurationBuilder configurtaionBuilder = new ConfigurationBuilder()
                   .SetBasePath(Directory.GetCurrentDirectory())
                   .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                   .AddEnvironmentVariables();
