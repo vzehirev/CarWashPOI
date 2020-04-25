@@ -107,7 +107,7 @@
 
 @if (User.Identity.IsAuthenticated)
 {
-    <form asp-controller="Comments" asp-action="CommentLocation" method="post">
+    <form asp-antiforgery="true" asp-controller="Comments" asp-action="CommentLocation" method="post">
         <div class="row mw-100 justify-content-center text-center mt-3">
             <div class="form-group col-md-4">
                 <input type="hidden" name="locationId" value="@Model.Id">

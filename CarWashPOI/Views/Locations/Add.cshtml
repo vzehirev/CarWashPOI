@@ -12,7 +12,7 @@
 
 <div class="col-md-4 mx-auto justify-content-center text-center">
     <hr />
-    <form asp-controller="Locations" asp-action="Add" enctype="multipart/form-data" method="post">
+    <form asp-antiforgery="true" asp-controller="Locations" asp-action="Add" enctype="multipart/form-data" method="post">
         <input id="latitude" asp-for="@Model.Latitude" hidden />
         <input id="longitude" asp-for="@Model.Longitude" hidden />
         <div class="form-group">
