@@ -9,7 +9,7 @@
         <li class="nav-item">
             <a class="nav-link siteNav" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">ЗДРАВЕЙ @User.Identity.Name!</a>
         </li>
-        if (User.IsInRole("admin"))
+        if (User.IsInRole("Admin"))
         {
             <li class="nav-item">
                 <a class="nav-link siteNav" asp-area="Administration" asp-controller="Home" asp-action="Index">АДМИНИСТРАЦИЯ</a>

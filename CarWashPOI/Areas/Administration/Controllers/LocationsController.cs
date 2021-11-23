@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace CarWashPOI.Areas.Administration.Controllers
 {
     [Area("Administration")]
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "Admin")]
     public class LocationsController : Controller
     {
         private readonly ILocationsService locationsService;

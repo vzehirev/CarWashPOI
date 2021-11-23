@@ -41,7 +41,7 @@ namespace CarWashPOI.Services.Images
 
             ImageUploadResult imageUploadResult = await cloudinary.UploadAsync(imageUploadParams);
 
-            return imageUploadResult.SecureUri.OriginalString;
+            return imageUploadResult.SecureUrl.OriginalString;
         }
     }
 }

@@ -1,10 +1,4 @@
 .vs/
-CarWashPOI/bin/
-CarWashPOI/obj/
-CarWashPOI/appsettings.Development.json
-CarWashPOI/appsettings.json
-CarWashPOITests/bin/
-CarWashPOITests/obj/
-CarWashPOITests/appsettings.Development.json
-CarWashPOITests/appsettings.jsonbin/
+appsettings.json
+bin/
 obj/

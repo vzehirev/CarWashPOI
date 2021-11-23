@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace CarWashPOI.Areas.Administration.Controllers
 {
     [Area("Administration")]
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "Admin")]
     public class HomeController : Controller
     {
         private readonly IArticlesService articlesService;
